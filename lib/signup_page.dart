@@ -233,7 +233,7 @@ class SignUpPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                         color: const Color(0xFF0029FF),
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.05,
                         fontFamily: "BNazanin",
                         fontWeight: FontWeight.w800),
                   ),
@@ -244,7 +244,7 @@ class SignUpPage extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             color: const Color(0xFF0029FF),
-                            fontSize: screenWidth * 0.04,
+                            fontSize: screenWidth * 0.05,
                             fontFamily: "BNazanin",
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,

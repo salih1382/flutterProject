@@ -169,7 +169,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: screenHeight * 0.05,
+                height: screenHeight * 0.025,
               ),
               TextButton(
                   onPressed: () {},
@@ -178,7 +178,7 @@ class LoginPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                         color: const Color(0xFF0029FF),
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.05,
                         fontFamily: "BNazanin",
                         fontWeight: FontWeight.w800,
                         decoration: TextDecoration.underline,
@@ -186,7 +186,7 @@ class LoginPage extends StatelessWidget {
                         decorationThickness: screenWidth * 0.005),
                   )),
               SizedBox(
-                height: screenHeight * 0.05,
+                height: screenHeight * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +197,7 @@ class LoginPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                         color: const Color(0xFF0029FF),
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.05,
                         fontFamily: "BNazanin",
                         fontWeight: FontWeight.w800),
                   ),
@@ -208,7 +208,7 @@ class LoginPage extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             color: const Color(0xFF0029FF),
-                            fontSize: screenWidth * 0.04,
+                            fontSize: screenWidth * 0.05,
                             fontFamily: "BNazanin",
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
@@ -220,7 +220,7 @@ class LoginPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                         color: const Color(0xFF0029FF),
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.05,
                         fontFamily: "BNazanin",
                         fontWeight: FontWeight.w800),
                   )
