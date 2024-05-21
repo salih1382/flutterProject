@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/LoginPage.dart';
+import 'package:flutter_project/login_page.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class SignUpPage extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFAFBBC1),
+      backgroundColor: const Color(0xFFAFBBC1),
       body: Center(
         child: SizedBox(
           width: screenWidth,
@@ -27,7 +27,7 @@ class SignUpPage extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.05,
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 0.8,
                 child: Column(
                   children: [
@@ -41,11 +41,11 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.75,
                           height: screenHeight * 0.06,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
@@ -69,16 +69,16 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.155,
                           height: screenWidth * 0.155,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
                             Icons.person_outline_rounded,
-                            color: Color(0xFF1D7084),
+                            color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
                         ),
@@ -97,11 +97,11 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.75,
                           height: screenHeight * 0.06,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextField(
@@ -125,16 +125,16 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.155,
                           height: screenWidth * 0.155,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
                             Icons.lock_open,
-                            color: Color(0xFF1D7084),
+                            color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
                         ),
@@ -153,11 +153,11 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.75,
                           height: screenHeight * 0.06,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
@@ -181,16 +181,16 @@ class SignUpPage extends StatelessWidget {
                           width: screenWidth * 0.155,
                           height: screenWidth * 0.155,
                           decoration: BoxDecoration(
-                            color: Color(0xFFD0D0D0),
+                            color: const Color(0xFFD0D0D0),
                             border: Border.all(
-                                color: Color(0xFF1D7084),
+                                color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                             borderRadius: BorderRadius.all(
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
                             Icons.contacts_outlined,
-                            color: Color(0xFF1D7084),
+                            color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
                         ),
@@ -202,20 +202,20 @@ class SignUpPage extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 0.75,
                 height: screenHeight * 0.06,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => Color(0xFF7A0C31)),
+                        (states) => const Color(0xFF7A0C31)),
                   ),
                   onPressed: () {},
                   child: Text(
                     "ورود به حساب کاربری",
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
-                        color: Color(0xFFAFBBC1),
+                        color: const Color(0xFFAFBBC1),
                         fontWeight: FontWeight.w600,
                         fontSize: screenWidth * 0.04),
                   ),
@@ -232,7 +232,7 @@ class SignUpPage extends StatelessWidget {
                     "حساب کاربری دارید؟",
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
-                        color: Color(0xFF0029FF),
+                        color: const Color(0xFF0029FF),
                         fontSize: screenWidth * 0.04,
                         fontFamily: "BNazanin",
                         fontWeight: FontWeight.w800),
@@ -243,12 +243,12 @@ class SignUpPage extends StatelessWidget {
                         "وارد شوید!",
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
-                            color: Color(0xFF0029FF),
+                            color: const Color(0xFF0029FF),
                             fontSize: screenWidth * 0.04,
                             fontFamily: "BNazanin",
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFF0029FF),
+                            decorationColor: const Color(0xFF0029FF),
                             decorationThickness: screenWidth * 0.005),
                       )),
                 ],
@@ -258,7 +258,7 @@ class SignUpPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                    Container(
+                    SizedBox(
                       width: screenWidth,
                       child: Image.asset("assets/images/sbu-building.png"),
                     ),
