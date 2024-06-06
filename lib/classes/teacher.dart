@@ -1,18 +1,23 @@
 import 'course.dart';
 import 'student.dart';
 import 'assignment.dart';
-import 'project.dart';
-import 'dart:core';
 
 class Teacher {
+  static List<Teacher> teachers = [];
+
   int? id;
   String name;
   String familyName;
+  String password;
   List<Course> courses = [];
   int courseCounter = 0;
-  static List<Teacher> teachers = [];
 
-  Teacher(this.id, this.name, this.familyName) {
+  Teacher({
+    required this.id,
+    required this.name,
+    required this.familyName,
+    required this.password,
+  }) {
     if (isIdAvailable(id!)) {
       teachers.add(this);
     }
@@ -44,6 +49,24 @@ class Teacher {
     }
   }
 
+  String printCourses() {
+    var courseString = 'Courses:\n';
+    var cntr = 1;
+    for (var course in courses) {
+      courseString += '$cntr.${course.courseTitle}\n';
+      cntr++;
+    }
+    return courseString;
+  }
+
+  static Teacher? findTeacherById(int id) {
+    try {
+      return teachers.firstWhere((teacher) => teacher.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
   void setStudentGrade(Course course, Student student, double grade) {
     if (course.teacher == this) {
       course.setStudentGrade(student, grade);
@@ -58,12 +81,12 @@ class Teacher {
     course.removeAssignment(assignment);
   }
 
-  void addProjectToCourse(Course course, Project project) {
-    course.addProject(project);
+  void setAssignmentDeadline(Assignment assignment, DateTime deadline) {
+    assignment.setDeadline(deadline);
   }
 
-  void removeProjectFromCourse(Course course, Project project) {
-    course.removeProject(project);
+  void setAssignmentDeadlineWithDays(Assignment assignment, int day, int hour) {
+    assignment.setDeadlineWithDays(day, hour);
   }
 
   bool isIdAvailable(int id) {
@@ -77,13 +100,18 @@ class Teacher {
 
   @override
   String toString() {
-    return "Teacher: $name $familyName, ID: $id";
+    return 'Teacher: $name $familyName, ID: $id';
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is Teacher && runtimeType == other.runtimeType && id == other.id;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Teacher && other.id == id;
+  }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode {
+    return id.hashCode;
+  }
 }

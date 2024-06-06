@@ -1,60 +1,86 @@
-import 'teacher.dart';
-import 'student.dart';
 import 'assignment.dart';
-import 'project.dart';
-import 'dart:core';
+import 'student.dart';
+import 'teacher.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Course {
+  static int _idCounter = 0;
+  static List<Course> courses = [];
+
   int units;
+  int id;
   Teacher teacher;
   String courseTitle;
   Map<Student, double?> mapOfGrades = {};
   List<Assignment> assignments = [];
-  List<Project> projects = [];
   int assignmentCounter = 0;
-  int projectCounter = 0;
   bool isActive;
-  DateTime? examDate;
-  DateTime? examStart;
-  DateTime? examStop;
+  DateTime examDate;
+  TimeOfDay examStart;
+  TimeOfDay examStop;
   double? maxGrade;
 
-  Course(this.courseTitle, this.teacher, this.units, this.isActive) {
+  Course({
+    required this.courseTitle,
+    required this.teacher,
+    required this.units,
+    required this.isActive,
+    required this.examDate,
+    required this.examStart,
+    required this.examStop,
+  }) : id = _idCounter++ {
     teacher.addCourse(this);
+    courses.add(this);
   }
 
-  void setExamTime(DateTime date, DateTime startTime, DateTime stopTime) {
-    this.examDate = date;
-    this.examStart = startTime;
-    this.examStop = stopTime;
+  void setExamTime(DateTime date, TimeOfDay startTime, TimeOfDay stopTime) {
+    examDate = date;
+    examStart = startTime;
+    examStop = stopTime;
   }
 
   String getExamTime() {
-    return "Exam time: on ${examDate.toString()} ${examStart.toString()} - ${examStop.toString()}";
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    DateFormat timeFormat = DateFormat('HH:mm');
+
+    String formattedStartDate = dateFormat.format(examDate);
+    String formattedStartTime = timeFormat.format(examStart as DateTime);
+    String formattedStopTime = timeFormat.format(examStop as DateTime);
+
+    return "Exam time: on $formattedStartDate $formattedStartTime - $formattedStopTime";
   }
 
-  int get numberOfStudents => mapOfGrades.length;
+  int getNumberOfStudents() {
+    return mapOfGrades.length;
+  }
 
-  List<Student> get studentsList => mapOfGrades.keys.toList();
+  void setMaxGrade(double maxGrade) {
+    this.maxGrade = maxGrade;
+  }
 
-  List<double?> get gradesList => mapOfGrades.values.toList();
+  List<Student> getStudentsList() {
+    return mapOfGrades.keys.toList();
+  }
+
+  List<double?> getGradesList() {
+    return mapOfGrades.values.toList();
+  }
 
   void addStudent(Student student) {
-    if (!mapOfGrades.containsKey(student) && student.id != null) {
+    if (!student.courses.contains(this)) {
       mapOfGrades[student] = null;
       student.updateCourseGrade(this, null);
     }
   }
 
-  void updateStudentGrade(Student student, double? grade) {
+  void updateStudentGrade(Student student, double grade) {
     mapOfGrades[student] = grade;
   }
 
   void removeStudent(Student student) {
-    if (mapOfGrades.containsKey(student)) {
-      mapOfGrades.remove(student);
-      student.removeCourse(this);
-    }
+    mapOfGrades.remove(student);
+    student.removeCourse(this);
   }
 
   void setStudentGrade(Student student, double grade) {
@@ -66,11 +92,11 @@ class Course {
 
   double getMaxGrade() {
     maxGrade = 0.0;
-    mapOfGrades.forEach((student, grade) {
+    for (var grade in mapOfGrades.values) {
       if (grade != null && maxGrade! < grade) {
         maxGrade = grade;
       }
-    });
+    }
     return maxGrade!;
   }
 
@@ -88,49 +114,48 @@ class Course {
     }
   }
 
-  void addProject(Project project) {
-    if (!projects.contains(project)) {
-      projects.add(project);
-      projectCounter++;
+  String printStudents() {
+    var studentString = 'Students:\n';
+    var cntr = 1;
+    for (var student in mapOfGrades.keys) {
+      studentString += '$cntr.${student}\n';
+      cntr++;
+    }
+    return studentString;
+  }
+
+  int getNumOfActiveAssignments() {
+    return assignments.where((assignment) => assignment.isActive).length;
+  }
+
+  int getNumOfInActiveAssignments() {
+    return assignments.where((assignment) => !assignment.isActive).length;
+  }
+
+  static Course? findCourseById(int id) {
+    try {
+      return courses.firstWhere((course) => course.id == id);
+    } catch (e) {
+      return null;
     }
   }
 
-  void removeProject(Project project) {
-    if (projects.contains(project)) {
-      projects.remove(project);
-      projectCounter--;
-    }
-  }
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-  int get numOfActiveProjects {
-    int activeProjects = 0;
-    projects.forEach((project) {
-      if (project.isActive) {
-        activeProjects++;
-      }
-    });
-    return activeProjects;
-  }
-
-  int get numOfInActiveProjects {
-    int inActiveProjects = 0;
-    projects.forEach((project) {
-      if (!project.isActive) {
-        inActiveProjects++;
-      }
-    });
-    return inActiveProjects;
+    return other is Course &&
+        other.units == units &&
+        other.isActive == isActive &&
+        other.teacher == teacher &&
+        other.courseTitle == courseTitle;
   }
 
   @override
-  String toString() {
-    return "Course: $courseTitle";
+  int get hashCode {
+    return units.hashCode ^
+        teacher.hashCode ^
+        courseTitle.hashCode ^
+        isActive.hashCode;
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is Course && runtimeType == other.runtimeType && courseTitle == other.courseTitle;
-
-  @override
-  int get hashCode => courseTitle.hashCode;
 }

@@ -1,41 +1,52 @@
 import 'course.dart';
 
 class Student {
+  static List<Student> students = [];
+
   int? id;
   String name;
   String familyName;
-  int termCounter = 0;
+  int termCounter = 1;
+  double currentGPA = 0.0;
+  double totalGrade = 0.0;
+  int totalUnits = 0;
+  List<Course> courses = [];
   Map<Course, double?> mapOfGrades = {};
-  double totalGrades = 0;
-  static List<Student> students = [];
 
-  Student(this.id, this.name, this.familyName) {
-    if (id != null && isIdAvailable(id!)) {
+  Student({
+    required this.id,
+    required this.name,
+    required this.familyName,
+  }) {
+    if (isIdAvailable(id!)) {
       students.add(this);
     }
   }
 
-  int get numberOfCourses => mapOfGrades.length;
-
-  int get numberOfUnits {
-    int unitCounter = 0;
-    mapOfGrades.forEach((course, grade) {
-      unitCounter += course.units;
-    });
-    return unitCounter;
+  void addCourse(Course course) {
+    if (!courses.contains(course)) {
+      courses.add(course);
+      mapOfGrades[course] = null;
+    }
   }
 
-  List<Course> get courses => mapOfGrades.keys.toList();
+  void removeCourse(Course course) {
+    courses.remove(course);
+    mapOfGrades.remove(course);
+  }
 
-  double get currentGPA {
-    int gradesCounter = 0;
-    mapOfGrades.forEach((course, grade) {
-      if (grade != null) {
-        gradesCounter++;
-      }
-    });
-    if (gradesCounter == 0) return 0.0;
-    return totalGrades / gradesCounter;
+  void updateCourseGrade(Course course, double? grade) {
+    if (courses.contains(course)) {
+      mapOfGrades[course] = grade;
+    }
+  }
+
+  static Student? findStudentById(int id) {
+    try {
+      return students.firstWhere((student) => student.id == id);
+    } catch (e) {
+      return null;
+    }
   }
 
   bool isIdAvailable(int id) {
@@ -47,61 +58,20 @@ class Student {
     return true;
   }
 
-  void addCourse(Course course) {
-    if (!mapOfGrades.containsKey(course)) {
-      mapOfGrades[course] = null;
-      course.updateStudentGrade(this, null);
-    }
-  }
-
-  void updateCourseGrade(Course course, double? grade) {
-    mapOfGrades[course] = grade;
-    if (grade != null) {
-      totalGrades += grade;
-    }
-  }
-
-  void removeCourse(Course course) {
-    if (mapOfGrades.containsKey(course)) {
-      if (mapOfGrades[course] != null) {
-        totalGrades -= mapOfGrades[course]!;
-      }
-      mapOfGrades.remove(course);
-    }
-  }
-
-  void setCourseGrade(Course course, double grade) {
-    if (mapOfGrades.containsKey(course)) {
-      mapOfGrades[course] = grade;
-      course.updateStudentGrade(this, grade);
-      totalGrades += grade;
-    }
-  }
-
   @override
   String toString() {
-    return '$name $familyName, ID: $id';
+    return 'Student: $name $familyName, ID: $id';
   }
 
-  String printCourses() {
-    String courseString = "Courses:\n";
-    int cntr = 1;
-    mapOfGrades.forEach((course, grade) {
-      courseString += "$cntr.${course.courseTitle} ";
-      if (grade != null) courseString += "Grade=$grade";
-      courseString += "\n";
-      cntr++;
-    });
-    return courseString.substring(0, courseString.lastIndexOf("\n"));
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Student && other.id == id;
   }
 
-  String printCurrentGPA() => "Average Grade: $currentGPA";
-  String printUnits() => "Units: $numberOfUnits";
-
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is Student && runtimeType == other.runtimeType && id == other.id;
-
-  @override
-  int get hashCode => id.hashCode;
+  int get hashCode {
+    return id.hashCode;
+  }
 }
