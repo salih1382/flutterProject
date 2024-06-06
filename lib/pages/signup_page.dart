@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/login_page.dart';
+import 'package:flutter_project/pages/login_page.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
