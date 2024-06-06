@@ -51,10 +51,10 @@ class Teacher {
 
   String printCourses() {
     var courseString = 'Courses:\n';
-    var cntr = 1;
+    var ctrl = 1;
     for (var course in courses) {
-      courseString += '$cntr.${course.courseTitle}\n';
-      cntr++;
+      courseString += '$ctrl.${course.courseTitle}\n';
+      ctrl++;
     }
     return courseString;
   }
