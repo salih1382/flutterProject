@@ -82,6 +82,9 @@ flutter:
      - family: BNazanin
        fonts:
          - asset: assets/fonts/BNazanin.ttf
+     - family: BTitr
+       fonts:
+         - asset: assets/fonts/BTitrBd.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

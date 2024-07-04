@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 import 'about_me_page.dart';
+import 'sara_page.dart';
+import 'kara_page.dart';
+import 'classa_page.dart';
+import 'tamrina_page.dart';
+import 'khabara_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,7 +14,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-int _currentPage = 0;
+int _currentPage = 4;
 final _pageController = PageController();
 
 class _HomePageState extends State<HomePage> {
@@ -18,12 +23,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: [
-          Container(color: Colors.black),
-          Container(color: Colors.red),
-          Container(color: Colors.greenAccent.shade700),
-          Container(color: Colors.orange),
-          const AboutMePage(),
+        children: const [
+          tamrinaPage(),
+          khabaraPage(),
+          classaPage(),
+          karaPage(),
+          saraPage(),
         ],
         onPageChanged: (index) {
           // Use a better state management solution
