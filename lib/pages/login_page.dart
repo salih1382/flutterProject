@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'signup_page.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -157,7 +158,7 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: MaterialStateColor.resolveWith(
                         (states) => const Color(0xFF7A0C31)),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Get.offAll(const HomePage()),
                   child: Text(
                     "ورود به حساب کاربری",
                     textDirection: TextDirection.rtl,
