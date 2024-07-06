@@ -37,7 +37,7 @@ class _saraPageState extends State<saraPage> {
               ),
               SizedBox(height: 22),
               Padding(
-                padding: const EdgeInsets.only(right: 20, top: 20),
+                padding: const EdgeInsets.only(right: 20),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   children: [
@@ -60,7 +60,7 @@ class _saraPageState extends State<saraPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Icon(
-                          Icons.beenhere_sharp,
+                          Icons.beenhere,
                           color: Color(0xFF7A0C31),
                           size: 25,
                         ),
@@ -195,7 +195,7 @@ class _saraPageState extends State<saraPage> {
               ),
               SizedBox(height: 75),
               Padding(
-                padding: const EdgeInsets.only(right: 20, top: 20, left: 20),
+                padding: const EdgeInsets.only(right: 20, left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
@@ -230,9 +230,10 @@ class _saraPageState extends State<saraPage> {
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              fontFamily: "BNazanin",
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,)),
+                            fontFamily: "BNazanin",
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold,
+                          )),
                       Row(
                         children: [
                           Icon(
@@ -240,7 +241,9 @@ class _saraPageState extends State<saraPage> {
                             color: Colors.red,
                             size: 30,
                           ),
-                          SizedBox(width: 15,),
+                          SizedBox(
+                            width: 15,
+                          ),
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,
@@ -269,9 +272,10 @@ class _saraPageState extends State<saraPage> {
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              fontFamily: "BNazanin",
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,)),
+                            fontFamily: "BNazanin",
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold,
+                          )),
                       Row(
                         children: [
                           Icon(
@@ -279,7 +283,9 @@ class _saraPageState extends State<saraPage> {
                             color: Colors.red,
                             size: 30,
                           ),
-                          SizedBox(width: 15,),
+                          SizedBox(
+                            width: 15,
+                          ),
                           Icon(
                             Icons.check_circle,
                             color: Colors.green,
@@ -298,7 +304,7 @@ class _saraPageState extends State<saraPage> {
               ),
               SizedBox(height: 75),
               Padding(
-                padding: const EdgeInsets.only(right: 20, top: 20),
+                padding: const EdgeInsets.only(right: 20),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   children: [
@@ -312,7 +318,7 @@ class _saraPageState extends State<saraPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 19),
+              SizedBox(height: 29),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
