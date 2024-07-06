@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-class HomeWorksWidget extends StatelessWidget {
-  HomeWorksWidget({required this.name, required this.deadLine, this.isDone = false, super.key});
-  String name;
-  String deadLine;
+class AssignmentsWidget extends StatelessWidget {
+  AssignmentsWidget(
+      {required this.assignmentTitle,
+      required this.deadLine,
+      this.isDone = false,
+      super.key});
+
+  String assignmentTitle;
+  DateTime deadLine;
   bool isDone;
 
   @override
@@ -27,18 +32,21 @@ class HomeWorksWidget extends StatelessWidget {
                       color: Colors.red,
                       size: 30,
                     ),
-                    SizedBox(width: 15,),
-                    Text(this.name,
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(this.assignmentTitle,
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           decoration: TextDecoration.lineThrough,
                           fontFamily: "BNazanin",
                           fontSize: 21,
-                          fontWeight: FontWeight.bold,)),
+                          fontWeight: FontWeight.bold,
+                        )),
                   ],
                 ),
-                Text(this.deadLine,
+                Text(this.deadLine.toString(),
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
@@ -53,8 +61,7 @@ class HomeWorksWidget extends StatelessWidget {
         height: 60,
         width: 430,
         decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.circular(20)),
+            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     } else {
       return Container(
@@ -72,17 +79,20 @@ class HomeWorksWidget extends StatelessWidget {
                     color: Colors.red,
                     size: 30,
                   ),
-                  SizedBox(width: 15,),
-                  Text(this.name,
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(this.assignmentTitle,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontFamily: "BNazanin",
                         fontSize: 21,
-                        fontWeight: FontWeight.bold,)),
+                        fontWeight: FontWeight.bold,
+                      )),
                 ],
               ),
-              Text(this.deadLine,
+              Text(this.deadLine.toString(),
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.right,
                   style: TextStyle(
@@ -96,8 +106,7 @@ class HomeWorksWidget extends StatelessWidget {
         height: 60,
         width: 430,
         decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.circular(20)),
+            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     }
   }

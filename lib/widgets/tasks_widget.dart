@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TasksWidget extends StatelessWidget {
-  TasksWidget({required this.name, required this.deadLine, this.isDone = false, super.key});
+  TasksWidget(
+      {required this.name,
+      required this.deadLine,
+      this.isDone = false,
+      super.key});
+
   String name;
-  String deadLine;
+  DateTime deadLine;
   bool isDone;
 
   @override
@@ -20,8 +25,10 @@ class TasksWidget extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 5,),
-                  Text(this.deadLine,
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(this.deadLine.toString(),
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -35,7 +42,8 @@ class TasksWidget extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "BNazanin",
                         fontSize: 21,
-                        fontWeight: FontWeight.bold,)),
+                        fontWeight: FontWeight.bold,
+                      )),
                 ],
               ),
               Row(
@@ -53,8 +61,7 @@ class TasksWidget extends StatelessWidget {
         height: 60,
         width: 430,
         decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.circular(20)),
+            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     } else {
       return Container(
@@ -68,8 +75,10 @@ class TasksWidget extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 5,),
-                  Text(this.deadLine,
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(this.deadLine.toString(),
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -83,7 +92,8 @@ class TasksWidget extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "BNazanin",
                         fontSize: 21,
-                        fontWeight: FontWeight.bold,)),
+                        fontWeight: FontWeight.bold,
+                      )),
                 ],
               ),
               Row(
@@ -93,7 +103,9 @@ class TasksWidget extends StatelessWidget {
                     color: Colors.red,
                     size: 30,
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(
+                    width: 15,
+                  ),
                   Icon(
                     Icons.check_circle,
                     color: Colors.green,
@@ -107,8 +119,7 @@ class TasksWidget extends StatelessWidget {
         height: 60,
         width: 430,
         decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.circular(20)),
+            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     }
   }
