@@ -14,18 +14,18 @@ class _khabaraPageState extends State<khabaraPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFAFBBC1),
+      backgroundColor: const Color(0xFFAFBBC1),
       body: Center(
-        child: Container(
+        child: SizedBox(
           height: screenHeight,
           width: screenWidth,
           child: Column(
             textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 22),
+              SizedBox(height: screenHeight*0.021),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth*0.042),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,54 +37,54 @@ class _khabaraPageState extends State<khabaraPage> {
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontFamily: "BTitr",
-                                fontSize: 21,
+                                fontSize: screenWidth*0.044,
                                 fontWeight: FontWeight.bold)),
                         Text("ترم بهار 1403",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontFamily: "BTitr",
-                                fontSize: 10,
+                                fontSize: screenWidth*0.021,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black.withOpacity(0.5))),
                       ],
                     ),
                     Icon(
                       Icons.newspaper,
-                      color: Color(0xFF7A0C31),
-                      size: 50,
+                      color: const Color(0xFF7A0C31),
+                      size: screenWidth*0.104,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 29),
+              SizedBox(height: screenHeight*0.028),
               Container(
-                height: 180,
-                width: 430,
+                height: screenHeight*0.173,
+                width: screenWidth*0.896,
                 decoration: BoxDecoration(
-                  color: Color(0xFF7A0C31).withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(20),
+                  color: const Color(0xFF7A0C31).withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(screenWidth*0.042),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
                   children: [
                     Container(
-                      width: 180,
+                      width: screenWidth*0.375,
                       decoration: BoxDecoration(
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image:
                               AssetImage("assets/images/sbu-building-real.png"),
                           fit: BoxFit.fitWidth,
                           alignment: Alignment.centerRight,
                         ),
                         borderRadius:
-                            BorderRadius.horizontal(right: Radius.circular(20)),
+                            BorderRadius.horizontal(right: Radius.circular(screenWidth*0.042)),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        padding: EdgeInsets.symmetric(horizontal: screenWidth*0.083),
                         child: Column(
                           textDirection: TextDirection.rtl,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -131,7 +131,7 @@ class _khabaraPageState extends State<khabaraPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: screenHeight*0.014),
               Container(
                 height: 180,
                 width: 430,
@@ -205,7 +205,7 @@ class _khabaraPageState extends State<khabaraPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: screenHeight*0.014),
               Container(
                 height: 180,
                 width: 430,

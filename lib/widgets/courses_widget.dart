@@ -19,14 +19,18 @@ class CoursesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      height: 180,
-      width: 430,
+      height: screenHeight * 0.173,
+      width: screenWidth * 0.896,
       decoration: BoxDecoration(
-          color: Color(0xFF7A0C31).withOpacity(0.9),
-          borderRadius: BorderRadius.circular(20)),
+          color: const Color(0xFF7A0C31).withOpacity(0.9),
+          borderRadius: BorderRadius.circular(screenWidth * 0.042)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.052, vertical: screenHeight * 0.014),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -39,29 +43,29 @@ class CoursesWidget extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.school,
-                      size: 30,
-                      color: Color(0xFFAFBBC1),
+                      size: screenWidth * 0.063,
+                      color: const Color(0xFFAFBBC1),
                     ),
                     SizedBox(
-                      width: 5,
+                      width: screenWidth * 0.010,
                     ),
-                    Text(this.courseTitle,
+                    Text(courseTitle,
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: TextStyle(
-                            color: Color(0xFFAFBBC1),
+                            color: const Color(0xFFAFBBC1),
                             fontFamily: "BNazanin",
-                            fontSize: 16,
+                            fontSize: screenWidth * 0.033,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
-                Text("استاد: ${this.teacher}",
+                Text("استاد: $teacher",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        color: Color(0xFFAFBBC1),
+                        color: const Color(0xFFAFBBC1),
                         fontFamily: "BNazanin",
-                        fontSize: 14,
+                        fontSize: screenWidth * 0.029,
                         fontWeight: FontWeight.bold)),
               ],
             ),
@@ -69,12 +73,12 @@ class CoursesWidget extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.right,
                 style: TextStyle(
-                    color: Color(0xFFAFBBC1),
+                    color: const Color(0xFFAFBBC1),
                     fontFamily: "BNazanin",
-                    fontSize: 16,
+                    fontSize: screenWidth * 0.033,
                     fontWeight: FontWeight.bold)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.104),
               child: Column(
                 children: [
                   Row(
@@ -82,67 +86,67 @@ class CoursesWidget extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.onetwothree,
-                        color: Color(0xFFAFBBC1),
-                        size: 25,
+                        color: const Color(0xFFAFBBC1),
+                        size: screenWidth * 0.052,
                       ),
                       SizedBox(
-                        width: 5,
+                        width: screenWidth * 0.010,
                       ),
-                      Text("تعداد واحد: ${this.units}",
+                      Text("تعداد واحد: $units",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              color: Color(0xFFAFBBC1),
+                              color: const Color(0xFFAFBBC1),
                               fontFamily: "BNazanin",
-                              fontSize: 12,
+                              fontSize: screenWidth * 0.025,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: screenHeight * 0.010,
                   ),
                   Row(
                     textDirection: TextDirection.rtl,
                     children: [
                       Icon(
                         Icons.edit_note,
-                        color: Color(0xFFAFBBC1),
-                        size: 25,
+                        color: const Color(0xFFAFBBC1),
+                        size: screenWidth * 0.052,
                       ),
                       SizedBox(
-                        width: 5,
+                        width: screenWidth * 0.010,
                       ),
-                      Text("تکالیف باقی مانده: ${this.remainingAssignments}",
+                      Text("تکالیف باقی مانده: $remainingAssignments",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              color: Color(0xFFAFBBC1),
+                              color: const Color(0xFFAFBBC1),
                               fontFamily: "BNazanin",
-                              fontSize: 12,
+                              fontSize: screenWidth * 0.025,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: screenHeight * 0.010,
                   ),
                   Row(
                     textDirection: TextDirection.rtl,
                     children: [
                       Icon(
                         Icons.beenhere,
-                        color: Color(0xFFAFBBC1),
-                        size: 25,
+                        color: const Color(0xFFAFBBC1),
+                        size: screenWidth * 0.052,
                       ),
                       SizedBox(
-                        width: 5,
+                        width: screenWidth * 0.010,
                       ),
-                      Text("دانشجوی ممتاز: ${this.topStudent}",
+                      Text("دانشجوی ممتاز: $topStudent",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              color: Color(0xFFAFBBC1),
+                              color: const Color(0xFFAFBBC1),
                               fontFamily: "BNazanin",
-                              fontSize: 12,
+                              fontSize: screenWidth * 0.025,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),

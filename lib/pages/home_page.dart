@@ -24,10 +24,13 @@ class ConvexAppExample extends StatefulWidget {
 }
 
 class _ConvexAppExampleState extends State<ConvexAppExample> {
-  TabStyle _tabStyle = TabStyle.reactCircle;
+  final TabStyle _tabStyle = TabStyle.reactCircle;
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return DefaultTabController(
       length: 5,
       initialIndex: 2,
@@ -45,39 +48,39 @@ class _ConvexAppExampleState extends State<ConvexAppExample> {
           leading: IconButton(
             icon: Icon(
               Icons.person,
-              color: Color(0xFFAFBBC1),
-              size: 63,
+              color: const Color(0xFFAFBBC1),
+              size: screenWidth*0.131,
             ),
-            onPressed: () => Get.to(AboutMePage()),
+            onPressed: () => Get.to(const AboutMePage()),
           ),
           actions: [
             Text("خروج",
                 textDirection: TextDirection.rtl,
                 textAlign: TextAlign.right,
                 style: TextStyle(
-                    color: Color(0xFFAFBBC1),
+                    color: const Color(0xFFAFBBC1),
                     fontFamily: "BTitr",
-                    fontSize: 21,
+                    fontSize: screenWidth*0.044,
                     fontWeight: FontWeight.bold)),
-            SizedBox(width: 5,),
+            SizedBox(width: screenWidth*0.010,),
             Icon(
               Icons.exit_to_app,
-              color: Color(0xFFAFBBC1),
-              size: 63,
+              color: const Color(0xFFAFBBC1),
+              size: screenWidth*0.131,
             ),
             SizedBox(
-              width: 15,
+              width: screenWidth*0.031,
             )
           ],
-          toolbarHeight: 80,
+          toolbarHeight: screenHeight*0.077,
           elevation: 10,
           shadowColor: Colors.black,
-          backgroundColor: Color(0xFF7A0C31),
+          backgroundColor: const Color(0xFF7A0C31),
         ),
         bottomNavigationBar: ConvexAppBar.badge(
           const <int, dynamic>{},
           style: _tabStyle,
-          backgroundColor: Color(0xFF7A0C31),
+          backgroundColor: const Color(0xFF7A0C31),
           items: <TabItem>[
             for (final entry in _kPages.entries)
               TabItem(icon: entry.value, title: entry.key),

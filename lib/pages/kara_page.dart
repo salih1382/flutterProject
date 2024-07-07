@@ -11,6 +11,9 @@ class _karaPageState extends State<karaPage> {
   TimeOfDay? _selectedTime;
 
   Future<void> _showTimePicker(BuildContext context) async {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -22,7 +25,7 @@ class _karaPageState extends State<karaPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(bottom: 30),
+          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
           content: Text(
             'زمان انتخاب شده: ${picked.format(context)}',
           ),
@@ -38,17 +41,17 @@ class _karaPageState extends State<karaPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFAFBBC1),
+      backgroundColor: const Color(0xFFAFBBC1),
       body: Center(
-        child: Container(
+        child: SizedBox(
           height: screenHeight,
           width: screenWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 22),
+              SizedBox(height: screenHeight * 0.021),
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(right: screenWidth * 0.042),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   children: [
@@ -57,13 +60,13 @@ class _karaPageState extends State<karaPage> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontFamily: "BTitr",
-                            fontSize: 21,
+                            fontSize: screenWidth * 0.044,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.042),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
@@ -73,15 +76,18 @@ class _karaPageState extends State<karaPage> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontFamily: "BTitr",
-                            fontSize: 10,
+                            fontSize: screenWidth * 0.021,
                             fontWeight: FontWeight.bold,
                             color: Colors.black.withOpacity(0.5))),
-                    Icon(Icons.calendar_month,
-                        color: Color(0xFF7A0C31), size: 25)
+                    Icon(
+                      Icons.calendar_month,
+                      color: const Color(0xFF7A0C31),
+                      size: screenWidth * 0.052,
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: 29),
+              SizedBox(height: screenHeight * 0.028),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -140,7 +146,7 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.010),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -199,7 +205,7 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.010),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -258,7 +264,7 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.010),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -317,7 +323,7 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.010),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -376,9 +382,9 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 75),
+              SizedBox(height: screenHeight * 0.072),
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(right: screenWidth * 0.042),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   children: [
@@ -387,12 +393,12 @@ class _karaPageState extends State<karaPage> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontFamily: "BTitr",
-                            fontSize: 21,
+                            fontSize: screenWidth * 0.044,
                             fontWeight: FontWeight.bold))
                   ],
                 ),
               ),
-              SizedBox(height: 29),
+              SizedBox(height: screenHeight * 0.028),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -422,7 +428,7 @@ class _karaPageState extends State<karaPage> {
                     color: Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.010),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -457,52 +463,58 @@ class _karaPageState extends State<karaPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        backgroundColor: Color(0xFF7A0C31),
+        shape: const CircleBorder(),
+        backgroundColor: const Color(0xFF7A0C31),
         onPressed: () {
           showBottomSheet(
             context: context,
             builder: (BuildContext context) => Container(
+              width: screenWidth,
+              height: screenHeight * 0.433,
+              decoration: BoxDecoration(
+                  color: const Color(0xFF7A0C31),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(screenWidth*0.042))),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.104),
                 child: Column(
                   children: [
                     Text(
                       "__________________________________",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: screenWidth * 0.025,
                         fontFamily: "BNazanin",
                         decoration: TextDecoration.underline,
-                        decorationThickness: 7,
-                        decorationColor: Color(0xFFAFBBC1),
+                        decorationThickness: screenWidth * 0.015,
+                        decorationColor: const Color(0xFFAFBBC1),
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: screenHeight*0.019,
                     ),
                     Row(
                       textDirection: TextDirection.rtl,
                       children: [
                         Icon(
                           Icons.edit_calendar,
-                          size: 25,
+                          size: screenWidth*0.052,
                           color: Color(0xFFAFBBC1),
                         ),
                         SizedBox(
-                          width: 15,
+                          width: screenWidth*0.031,
                         ),
-                        Text("افزودن کار جدید",
+                         Text("افزودن کار جدید",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                color: Color(0xFFAFBBC1),
+                                color: const Color(0xFFAFBBC1),
                                 fontFamily: "BTitr",
-                                fontSize: 21,
+                                fontSize: screenWidth*0.044,
                                 fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(
-                      height: 15,
+                      height: screenHeight*0.014,
                     ),
                     Row(
                       textDirection: TextDirection.rtl,
@@ -511,38 +523,38 @@ class _karaPageState extends State<karaPage> {
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                color: Color(0xFFAFBBC1),
+                                color: const Color(0xFFAFBBC1),
                                 fontFamily: "BTitr",
-                                fontSize: 14,
+                                fontSize: screenWidth*0.029,
                                 fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: screenHeight*0.010,
                     ),
                     Container(
-                      width: 380,
-                      height: 75,
+                      width: screenWidth*0.8,
+                      height: screenHeight*0.072,
                       decoration: BoxDecoration(
                         color: const Color(0xFFD0D0D0),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(screenWidth*0.042)),
                         border: Border.all(
-                            color: const Color(0xFF1D7084), width: 3),
+                            color: const Color(0xFF1D7084), width: screenWidth*0.006),
                       ),
                       child: TextField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                  BorderRadius.all(Radius.circular(screenWidth*0.042)),
                             ),
                             contentPadding:
-                                EdgeInsets.only(right: 20, left: 20, top: 43),
+                                EdgeInsets.only(right: screenWidth*0.042, left: screenWidth*0.042, top: screenHeight*0.041),
                             hintTextDirection: TextDirection.rtl,
                             hintText: "بازم کار جدید :)"),
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: screenHeight*0.014,
                     ),
                     Row(
                       textDirection: TextDirection.rtl,
@@ -551,14 +563,14 @@ class _karaPageState extends State<karaPage> {
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                color: Color(0xFFAFBBC1),
+                                color: const Color(0xFFAFBBC1),
                                 fontFamily: "BTitr",
-                                fontSize: 14,
+                                fontSize: screenWidth*0.029,
                                 fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: screenHeight*0.010,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -569,18 +581,18 @@ class _karaPageState extends State<karaPage> {
                           children: [
                             Icon(
                               Icons.access_time_filled,
-                              size: 20,
-                              color: Color(0xFFAFBBC1),
+                              size: screenWidth*0.042,
+                              color: const Color(0xFFAFBBC1),
                             ),
                             SizedBox(
-                              width: 5,
+                              width: screenWidth*0.010,
                             ),
                             Container(
-                              width: 100,
-                              height: 20,
+                              width: screenWidth*0.208,
+                              height: screenHeight*0.019,
                               decoration: BoxDecoration(
-                                color: Color(0xFFAFBBC1),
-                                borderRadius: BorderRadius.circular(5),
+                                color: const Color(0xFFAFBBC1),
+                                borderRadius: BorderRadius.circular(screenWidth*0.010),
                               ),
                               child: Center(
                                 child: Text("24 فروردین، 1403",
@@ -588,7 +600,7 @@ class _karaPageState extends State<karaPage> {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         fontFamily: "BTitr",
-                                        fontSize: 10,
+                                        fontSize: screenWidth*0.021,
                                         fontWeight: FontWeight.bold)),
                               ),
                             )
@@ -596,18 +608,18 @@ class _karaPageState extends State<karaPage> {
                         ),
                         Icon(
                           Icons.notifications_active,
-                          size: 20,
-                          color: Color(0xFFAFBBC1),
+                          size: screenWidth*0.042,
+                          color: const Color(0xFFAFBBC1),
                         )
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: screenHeight*0.010,
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => Color(0xFFAFBBC1))),
+                              (states) => const Color(0xFFAFBBC1))),
                       onPressed: () => _showTimePicker(context),
                       child: Text("انتخاب زمان",
                           textDirection: TextDirection.rtl,
@@ -615,19 +627,19 @@ class _karaPageState extends State<karaPage> {
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "BNazanin",
-                              fontSize: 14,
+                              fontSize: screenWidth*.029,
                               fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
-                      height: 35,
+                      height: screenHeight*0.034,
                     ),
                     SizedBox(
-                      width: 360,
-                      height: 50,
+                      width: screenWidth*0.75,
+                      height: screenHeight*0.048,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
-                                  (states) => const Color(0xFFAFBBC1)),
+                              (states) => const Color(0xFFAFBBC1)),
                         ),
                         onPressed: () {},
                         child: Text(
@@ -637,26 +649,20 @@ class _karaPageState extends State<karaPage> {
                               color: const Color(0xFF7A0C31),
                               fontFamily: "BTitr",
                               fontWeight: FontWeight.bold,
-                              fontSize: 21),
+                              fontSize: screenWidth*0.044),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              width: screenWidth,
-              height: screenHeight / 2.3,
-              decoration: BoxDecoration(
-                  color: Color(0xFF7A0C31),
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
             ),
           );
         },
         child: Icon(
           Icons.add,
-          color: Color(0xFFAFBBC1),
-          size: 30,
+          color: const Color(0xFFAFBBC1),
+          size: screenWidth*0.063,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

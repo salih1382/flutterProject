@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:html';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
-class NewsWidget extends StatelessWidget {
+class NewsWidget extends StatefulWidget {
   NewsWidget(
       {required this.newsTitle,
       required this.previewDetails,
@@ -11,73 +12,136 @@ class NewsWidget extends StatelessWidget {
 
   String newsTitle;
   String previewDetails;
-  Url newsUrl;
+  String newsUrl;
   AssetImage image;
 
   @override
+  State<NewsWidget> createState() => _NewsWidgetState();
+}
+
+class _NewsWidgetState extends State<NewsWidget> {
+  late TextEditingController _controller;
+  late WebViewController _webviewController;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    _webviewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            debugPrint('Page finished loading: $url');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            return NavigationDecision.navigate;
+          },
+        ),
+      );
+  }
+
+  Future<void> _openInWebview(String url) async {
+    final canLaunch = await url_launcher.canLaunchUrl(Uri.parse(url));
+    if (!mounted) return;
+    if (canLaunch) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => Scaffold(
+            appBar: AppBar(title: Text(url)),
+            body: WebViewWidget(
+                controller: _webviewController..loadRequest(Uri.parse(url))),
+          ),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('URL $url can not be launched.'),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      height: 180,
-      width: 430,
+      height: screenHeight * 0.173,
+      width: screenWidth * 0.896,
       decoration: BoxDecoration(
-        color: Color(0xFF7A0C31).withOpacity(0.9),
-        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xFF7A0C31).withOpacity(0.9),
+        borderRadius: BorderRadius.circular(screenWidth * 0.042),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         textDirection: TextDirection.rtl,
         children: [
           Container(
-            width: 180,
+            width: screenWidth * 0.375,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: image,
+                image: widget.image,
                 fit: BoxFit.fitWidth,
                 alignment: Alignment.centerRight,
               ),
-              borderRadius: BorderRadius.horizontal(right: Radius.circular(20)),
+              borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(screenWidth * 0.042)),
             ),
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.083),
               child: Column(
                 textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(this.newsTitle,
+                  Text(widget.newsTitle,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          color: Color(0xFFAFBBC1),
+                          color: const Color(0xFFAFBBC1),
                           fontFamily: "BTitr",
-                          fontSize: 17,
+                          fontSize: screenWidth * 0.035,
                           fontWeight: FontWeight.bold)),
                   SizedBox(
-                    height: 15,
+                    height: screenHeight * 0.014,
                   ),
-                  Text(this.previewDetails,
+                  Text(widget.previewDetails,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          color: Color(0xFFAFBBC1),
+                          color: const Color(0xFFAFBBC1),
                           fontFamily: "BNazanin",
-                          fontSize: 13,
+                          fontSize: screenWidth * 0.027,
                           fontWeight: FontWeight.bold)),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _controller.text = widget.newsUrl;
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        _openInWebview('http://${_controller.text}');
+                      },
                       child: Text(
                         "مطالعه بیشتر...",
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             color: const Color(0xFFAFBBC1),
-                            fontSize: 12,
+                            fontSize: screenWidth * 0.025,
                             fontFamily: "BNazanin",
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                             decorationColor: const Color(0xFFAFBBC1),
-                            decorationThickness: 3),
+                            decorationThickness: screenWidth * 0.006),
                       )),
                 ],
               ),

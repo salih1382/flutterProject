@@ -14,17 +14,17 @@ class _classaPageState extends State<classaPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFAFBBC1),
+      backgroundColor: const Color(0xFFAFBBC1),
       body: Center(
-        child: Container(
+        child: SizedBox(
           height: screenHeight,
           width: screenWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 22),
+              SizedBox(height: screenHeight * 0.02),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.041),
                 child: Row(
                   textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,14 +36,14 @@ class _classaPageState extends State<classaPage> {
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontFamily: "BTitr",
-                                fontSize: 21,
+                                fontSize: screenWidth * 0.044,
                                 fontWeight: FontWeight.bold)),
                         Text("ترم بهار 1403",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
                                 fontFamily: "BTitr",
-                                fontSize: 10,
+                                fontSize: screenWidth * 0.021,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black.withOpacity(0.5))),
                       ],
@@ -53,46 +53,55 @@ class _classaPageState extends State<classaPage> {
                           showBottomSheet(
                             context: context,
                             builder: (BuildContext context) => Container(
+                              width: screenWidth,
+                              height: screenHeight / 3,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFF7A0C31),
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(
+                                          screenWidth * 0.042))),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: screenWidth * 0.105),
                                 child: Column(
                                   children: [
                                     Text(
                                       "__________________________________",
                                       style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: screenWidth * 0.025,
                                         fontFamily: "BNazanin",
                                         decoration: TextDecoration.underline,
-                                        decorationThickness: 7,
-                                        decorationColor: Color(0xFFAFBBC1),
+                                        decorationThickness:
+                                            screenWidth * 0.015,
+                                        decorationColor: const Color(0xFFAFBBC1),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 20,
+                                      height: screenHeight*0.019,
                                     ),
                                     Row(
                                       textDirection: TextDirection.rtl,
                                       children: [
                                         Icon(
                                           Icons.school,
-                                          size: 25,
-                                          color: Color(0xFFAFBBC1),
+                                          size: screenWidth*0.052,
+                                          color: const Color(0xFFAFBBC1),
                                         ),
                                         SizedBox(
-                                          width: 15,
+                                          width: screenWidth*0.031,
                                         ),
                                         Text("افزودن کلاس جدید",
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
-                                                color: Color(0xFFAFBBC1),
+                                                color: const Color(0xFFAFBBC1),
                                                 fontFamily: "BTitr",
-                                                fontSize: 21,
+                                                fontSize: screenWidth*0.044,
                                                 fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 15,
+                                      height: screenHeight*0.014,
                                     ),
                                     Row(
                                       textDirection: TextDirection.rtl,
@@ -101,46 +110,52 @@ class _classaPageState extends State<classaPage> {
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
-                                                color: Color(0xFFAFBBC1),
+                                                color: const Color(0xFFAFBBC1),
                                                 fontFamily: "BTitr",
-                                                fontSize: 14,
+                                                fontSize: screenWidth*0.029,
                                                 fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: screenHeight*0.010,
                                     ),
                                     Container(
-                                      width: 380,
-                                      height: 75,
+                                      width: screenWidth*0.8,
+                                      height: screenHeight*0.072,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFD0D0D0),
-                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(screenWidth*0.042)),
                                         border: Border.all(
-                                            color: const Color(0xFF1D7084), width: 3),
+                                            color: const Color(0xFF1D7084),
+                                            width: screenWidth*0.006),
                                       ),
                                       child: TextField(
                                         decoration: InputDecoration(
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.all(Radius.circular(20)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(screenWidth*0.042)),
                                             ),
-                                            contentPadding:
-                                            EdgeInsets.only(right: 20, left: 20, top: 43),
-                                            hintTextDirection: TextDirection.rtl,
-                                            hintText: "کد گلستان درس را وارد کنید..."),
+                                            contentPadding: EdgeInsets.only(
+                                                right: screenWidth*0.042, left: screenWidth*0.042, top: screenHeight*0.041),
+                                            hintTextDirection:
+                                                TextDirection.rtl,
+                                            hintText:
+                                                "کد گلستان درس را وارد کنید..."),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 35,
+                                      height: screenHeight*0.034,
                                     ),
                                     SizedBox(
-                                      width: 360,
-                                      height: 50,
+                                      width: screenWidth*0.75,
+                                      height: screenHeight*0.048,
                                       child: ElevatedButton(
                                         style: ButtonStyle(
-                                          backgroundColor: MaterialStateColor.resolveWith(
-                                                  (states) => const Color(0xFFAFBBC1)),
+                                          backgroundColor:
+                                              MaterialStateColor.resolveWith(
+                                                  (states) =>
+                                                      const Color(0xFFAFBBC1)),
                                         ),
                                         onPressed: () {},
                                         child: Text(
@@ -150,40 +165,34 @@ class _classaPageState extends State<classaPage> {
                                               color: const Color(0xFF7A0C31),
                                               fontFamily: "BTitr",
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 21),
+                                              fontSize: screenWidth*0.044),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              width: screenWidth,
-                              height: screenHeight / 3,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF7A0C31),
-                                  borderRadius:
-                                  BorderRadius.vertical(top: Radius.circular(20))),
                             ),
                           );
                         },
-                        backgroundColor: Color(0xFF7A0C31),
+                        backgroundColor: const Color(0xFF7A0C31),
                         icon: Icon(
                           Icons.add_circle,
-                          color: Color(0xFFAFBBC1),
-                          size: 30,
+                          color: const Color(0xFFAFBBC1),
+                          size: screenWidth*0.063,
                         ),
                         label: Text("افزودن کلاس",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: TextStyle(
-                                color: Color(0xFFAFBBC1),
+                                color: const Color(0xFFAFBBC1),
                                 fontFamily: "BTitr",
-                                fontSize: 14,
+                                fontSize: screenWidth*0.030,
                                 fontWeight: FontWeight.bold)))
                   ],
                 ),
               ),
-              SizedBox(height: 29),
+              SizedBox(height: screenHeight*0.028),
               Container(
                 height: 180,
                 width: 430,
@@ -320,7 +329,7 @@ class _classaPageState extends State<classaPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: screenHeight*0.014),
               Container(
                 height: 180,
                 width: 430,
@@ -457,7 +466,7 @@ class _classaPageState extends State<classaPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: screenHeight*0.014),
               Container(
                 height: 180,
                 width: 430,
@@ -599,13 +608,13 @@ class _classaPageState extends State<classaPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        backgroundColor: Color(0xFF7A0C31),
+        shape: const CircleBorder(),
+        backgroundColor: const Color(0xFF7A0C31),
         onPressed: () {},
         child: Icon(
           Icons.calendar_month,
-          color: Color(0xFFAFBBC1),
-          size: 30,
+          color: const Color(0xFFAFBBC1),
+          size: screenWidth*0.063,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

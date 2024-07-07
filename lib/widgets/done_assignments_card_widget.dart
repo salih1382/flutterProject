@@ -7,14 +7,22 @@ class DoneAssignmentsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
+      height: screenHeight * 0.106,
+      width: screenWidth * 0.438,
+      decoration: BoxDecoration(
+          color: const Color(0xFFD9D9D9),
+          borderRadius: BorderRadius.circular(screenWidth * 0.042)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Icon(
             Icons.check_circle,
             color: Colors.green,
-            size: 25,
+            size: screenWidth * 0.052,
           ),
           Text(
             assignmentTitle,
@@ -22,15 +30,11 @@ class DoneAssignmentsCardWidget extends StatelessWidget {
             textAlign: TextAlign.right,
             style: TextStyle(
                 fontFamily: "BNazanin",
-                fontSize: 16,
+                fontSize: screenWidth * 0.033,
                 fontWeight: FontWeight.bold),
           )
         ],
       ),
-      height: 110,
-      width: 210,
-      decoration: BoxDecoration(
-          color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
     );
   }
 }

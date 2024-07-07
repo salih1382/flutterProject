@@ -13,10 +13,18 @@ class TasksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     if (isDone) {
       return Container(
+        height: screenHeight * 0.058,
+        width: screenWidth * 0.896,
+        decoration: BoxDecoration(
+            color: const Color(0xFFD9D9D9),
+            borderRadius: BorderRadius.circular(screenWidth * 0.042)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.052),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             textDirection: TextDirection.rtl,
@@ -26,22 +34,22 @@ class TasksWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 5,
+                    height: screenHeight * 0.005,
                   ),
-                  Text(this.deadLine.toString(),
+                  Text(deadLine.toString(),
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontFamily: "BNazanin",
-                          fontSize: 12,
+                          fontSize: screenWidth * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(0.5))),
-                  Text(this.name,
+                  Text(name,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontFamily: "BNazanin",
-                        fontSize: 21,
+                        fontSize: screenWidth * 0.044,
                         fontWeight: FontWeight.bold,
                       )),
                 ],
@@ -51,22 +59,23 @@ class TasksWidget extends StatelessWidget {
                   Icon(
                     Icons.cancel,
                     color: Colors.red,
-                    size: 30,
+                    size: screenWidth * 0.063,
                   ),
                 ],
               )
             ],
           ),
         ),
-        height: 60,
-        width: 430,
-        decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     } else {
       return Container(
+        height: screenHeight * 0.058,
+        width: screenWidth * 0.896,
+        decoration: BoxDecoration(
+            color: const Color(0xFFD9D9D9),
+            borderRadius: BorderRadius.circular(screenWidth * 0.042)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.052),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             textDirection: TextDirection.rtl,
@@ -76,22 +85,22 @@ class TasksWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 5,
+                    height: screenHeight * 0.005,
                   ),
-                  Text(this.deadLine.toString(),
+                  Text(deadLine.toString(),
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontFamily: "BNazanin",
-                          fontSize: 12,
+                          fontSize: screenWidth * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(0.5))),
-                  Text(this.name,
+                  Text(name,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontFamily: "BNazanin",
-                        fontSize: 21,
+                        fontSize: screenWidth * 0.044,
                         fontWeight: FontWeight.bold,
                       )),
                 ],
@@ -101,25 +110,21 @@ class TasksWidget extends StatelessWidget {
                   Icon(
                     Icons.cancel,
                     color: Colors.red,
-                    size: 30,
+                    size: screenWidth * 0.063,
                   ),
                   SizedBox(
-                    width: 15,
+                    width: screenWidth * 0.031,
                   ),
                   Icon(
                     Icons.check_circle,
                     color: Colors.green,
-                    size: 30,
+                    size: screenWidth * 0.063,
                   ),
                 ],
               )
             ],
           ),
         ),
-        height: 60,
-        width: 430,
-        decoration: BoxDecoration(
-            color: Color(0xFFD9D9D9), borderRadius: BorderRadius.circular(20)),
       );
     }
   }

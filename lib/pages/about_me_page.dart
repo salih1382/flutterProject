@@ -12,13 +12,13 @@ class AboutMePage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        color: Color(0xFF7A0C31),
+        color: const Color(0xFF7A0C31),
         child: Column(
           children: [
             SizedBox(height: screenHeight * 0.06),
             CircleAvatar(
               radius: screenWidth * 0.13,
-              backgroundColor: Color(0xFFAFBBC1),
+              backgroundColor: const Color(0xFFAFBBC1),
             ),
             SizedBox(height: screenHeight * 0.017),
             Text(
@@ -41,6 +41,10 @@ class AboutMePage extends StatelessWidget {
             Expanded(
                 child: Container(
               width: screenWidth,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(screenWidth * 0.1)),
+                  color: const Color(0xFFAFBBC1)),
               child: Column(
                 children: [
                   SizedBox(
@@ -50,16 +54,16 @@ class AboutMePage extends StatelessWidget {
                     width: screenWidth * 0.75,
                     height: screenHeight * 0.290,
                     decoration: BoxDecoration(
-                      color: Color(0xFF7A0C31),
+                      color: const Color(0xFF7A0C31),
                       border: Border.all(
-                          color: Color(0xFF64122D), width: screenWidth * 0.007),
+                          color: const Color(0xFF64122D), width: screenWidth * 0.007),
                       borderRadius:
                           BorderRadius.all(Radius.circular(screenWidth * 0.04)),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
+                        SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +88,7 @@ class AboutMePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +113,7 @@ class AboutMePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,7 +138,7 @@ class AboutMePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +169,7 @@ class AboutMePage extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.04),
                   TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.edit,
                       color: Color(0xFF7A0C31),
                     ),
@@ -177,11 +181,11 @@ class AboutMePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: screenWidth * 0.04),
                     ),
-                    style: ButtonStyle(),
+                    style: const ButtonStyle(),
                   ),
                   TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.password,
                       color: Color(0xFF7A0C31),
                     ),
@@ -193,7 +197,7 @@ class AboutMePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: screenWidth * 0.04),
                     ),
-                    style: ButtonStyle(),
+                    style: const ButtonStyle(),
                   ),
                   SizedBox(height: screenHeight *0.04),
                   SizedBox(
@@ -218,10 +222,6 @@ class AboutMePage extends StatelessWidget {
                   ),
                 ],
               ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(screenWidth * 0.1)),
-                  color: Color(0xFFAFBBC1)),
             )),
           ],
         ),
