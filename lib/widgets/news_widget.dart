@@ -130,7 +130,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                       onPressed: () {
                         _controller.text = widget.newsUrl;
                         FocusScope.of(context).requestFocus(FocusNode());
-                        _openInWebview('http://${_controller.text}');
+                        _openInWebview('https://${_controller.text}');
                       },
                       child: Text(
                         "مطالعه بیشتر...",
