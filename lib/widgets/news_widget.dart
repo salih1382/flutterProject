@@ -6,14 +6,14 @@ class NewsWidget extends StatefulWidget {
   NewsWidget(
       {required this.newsTitle,
       required this.previewDetails,
-      this.image = const AssetImage("assets/images/sbu-building-real.png"),
       required this.newsUrl,
+      required this.imageUrl,
       super.key});
 
   String newsTitle;
   String previewDetails;
   String newsUrl;
-  AssetImage image;
+  String imageUrl;
 
   @override
   State<NewsWidget> createState() => _NewsWidgetState();
@@ -91,8 +91,8 @@ class _NewsWidgetState extends State<NewsWidget> {
             width: screenWidth * 0.375,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: widget.image,
-                fit: BoxFit.fitWidth,
+                image: NetworkImage(widget.imageUrl),
+                fit: BoxFit.fitHeight,
                 alignment: Alignment.centerRight,
               ),
               borderRadius: BorderRadius.horizontal(
@@ -130,7 +130,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                       onPressed: () {
                         _controller.text = widget.newsUrl;
                         FocusScope.of(context).requestFocus(FocusNode());
-                        _openInWebview('https://${_controller.text}');
+                        _openInWebview(_controller.text);
                       },
                       child: Text(
                         "مطالعه بیشتر...",

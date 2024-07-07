@@ -14,7 +14,7 @@ class _classaPageState extends State<classaPage> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    globals.update();
+    //globals.update();
 
     return Scaffold(
       backgroundColor: const Color(0xFFAFBBC1),
