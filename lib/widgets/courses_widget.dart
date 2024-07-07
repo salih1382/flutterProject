@@ -23,7 +23,8 @@ class CoursesWidget extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      height: screenHeight * 0.173,
+      margin: EdgeInsets.only(bottom: screenHeight*0.014),
+      height: screenHeight * 0.200,
       width: screenWidth * 0.896,
       decoration: BoxDecoration(
           color: const Color(0xFF7A0C31).withOpacity(0.9),
@@ -59,7 +60,7 @@ class CoursesWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
-                Text("استاد: $teacher",
+                Text("استاد: ${"${teacher.name} ${teacher.familyName}"}",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
@@ -140,7 +141,7 @@ class CoursesWidget extends StatelessWidget {
                       SizedBox(
                         width: screenWidth * 0.010,
                       ),
-                      Text("دانشجوی ممتاز: $topStudent",
+                      Text("دانشجوی ممتاز: ${"${topStudent.name} ${topStudent.familyName}"}",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(

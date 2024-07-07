@@ -4,7 +4,7 @@ class DoneAssignmentsCardWidget extends StatelessWidget {
   DoneAssignmentsCardWidget({required this.assignmentTitle, super.key});
 
   String assignmentTitle;
-
+  
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;

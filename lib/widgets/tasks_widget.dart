@@ -11,6 +11,24 @@ class TasksWidget extends StatelessWidget {
   DateTime deadLine;
   bool isDone;
 
+  String? intToMonth(int number) {
+    switch(number) {
+      case 1: return "فروردین";
+      case 2: return "اردیبهشت";
+      case 3: return "خرداد";
+      case 4: return "تیر";
+      case 5: return "مرداد";
+      case 6: return "شهریور";
+      case 7: return "مهر";
+      case 8: return "آبان";
+      case 9: return "آذر";
+      case 10: return "دی";
+      case 11: return "بهمن";
+      case 12: return "اسفند";
+      default: return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -18,6 +36,7 @@ class TasksWidget extends StatelessWidget {
 
     if (isDone) {
       return Container(
+        margin: EdgeInsets.only(bottom: screenHeight * 0.010),
         height: screenHeight * 0.058,
         width: screenWidth * 0.896,
         decoration: BoxDecoration(
@@ -36,7 +55,7 @@ class TasksWidget extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.005,
                   ),
-                  Text(deadLine.toString(),
+                  Text("${deadLine.hour.toString()}:00",
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -69,6 +88,7 @@ class TasksWidget extends StatelessWidget {
       );
     } else {
       return Container(
+        margin: EdgeInsets.only(bottom: screenHeight * 0.010),
         height: screenHeight * 0.058,
         width: screenWidth * 0.896,
         decoration: BoxDecoration(
@@ -87,11 +107,10 @@ class TasksWidget extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.005,
                   ),
-                  Text(deadLine.toString(),
+                  Text("${deadLine.hour.toString()}:00",
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontFamily: "BNazanin",
                           fontSize: screenWidth * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(0.5))),

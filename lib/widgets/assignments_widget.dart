@@ -32,6 +32,24 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
     }
   }
 
+  String? intToMonth(int number) {
+    switch(number) {
+      case 1: return "فروردین";
+      case 2: return "اردیبهشت";
+      case 3: return "خرداد";
+      case 4: return "تیر";
+      case 5: return "مرداد";
+      case 6: return "شهریور";
+      case 7: return "مهر";
+      case 8: return "آبان";
+      case 9: return "آذر";
+      case 10: return "دی";
+      case 11: return "بهمن";
+      case 12: return "اسفند";
+      default: return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -39,6 +57,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
 
     if (widget.isDone) {
       return Container(
+        margin: EdgeInsets.only(bottom: screenHeight * 0.010),
         height: screenHeight * 0.058,
         width: screenWidth * 0.896,
         decoration: BoxDecoration(
@@ -337,13 +356,13 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                 textDirection: TextDirection.rtl,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  color: const Color(0xFFAFBBC1),
+                                  color: const Color(0xFFD0D0D0),
                                   fontFamily: "BTitr",
                                   fontSize: screenWidth * 0.025,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Container(
-                              width: screenWidth * 0.40,
+                              width: screenWidth * 0.30,
                               height: screenHeight * 0.027,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFD0D0D0),
@@ -396,6 +415,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
           });
         },
         child: Container(
+          margin: EdgeInsets.only(bottom: screenHeight * 0.010),
           height: screenHeight * 0.058,
           width: screenWidth * 0.896,
           decoration: BoxDecoration(
@@ -431,7 +451,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                         )),
                   ],
                 ),
-                Text(widget.deadLine.toString(),
+                Text("${widget.deadLine.day} ${intToMonth(widget.deadLine.month)} ${widget.deadLine.year}",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(

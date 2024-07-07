@@ -76,6 +76,7 @@ class _NewsWidgetState extends State<NewsWidget> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
+      margin: EdgeInsets.only(bottom: screenHeight*0.014),
       height: screenHeight * 0.173,
       width: screenWidth * 0.896,
       decoration: BoxDecoration(
