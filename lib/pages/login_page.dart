@@ -158,7 +158,7 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: MaterialStateColor.resolveWith(
                         (states) => const Color(0xFF7A0C31)),
                   ),
-                  onPressed: () => Get.offAll(const HomePage()),
+                  onPressed: () => Get.offAll(const ConvexAppExample()),
                   child: Text(
                     "ورود به حساب کاربری",
                     textDirection: TextDirection.rtl,

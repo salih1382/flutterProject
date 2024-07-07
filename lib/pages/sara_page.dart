@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class saraPage extends StatefulWidget {
@@ -23,18 +22,6 @@ class _saraPageState extends State<saraPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.person, color: Color(0xFF7A0C31), size: 63),
-                    Icon(Icons.menu_outlined,
-                        color: Color(0xFF7A0C31), size: 63)
-                  ],
-                ),
-              ),
               SizedBox(height: 22),
               Padding(
                 padding: const EdgeInsets.only(right: 20),
