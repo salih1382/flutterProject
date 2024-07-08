@@ -8,7 +8,6 @@ import 'kara_page.dart';
 import 'classa_page.dart';
 import 'tamrina_page.dart';
 import 'khabara_page.dart';
-import '../globals.dart' as globals;
 
 const _kPages = <String, IconData>{
   'تمرینا': Icons.edit_note,
