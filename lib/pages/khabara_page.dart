@@ -10,10 +10,20 @@ class khabaraPage extends StatefulWidget {
 
 class _khabaraPageState extends State<khabaraPage> {
   @override
+  void initState() {
+    super.initState();
+    _updateNews();
+  }
+
+  Future<void> _updateNews() async {
+    await globals.update();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    globals.updateNews();
 
     return Scaffold(
       backgroundColor: const Color(0xFFAFBBC1),
