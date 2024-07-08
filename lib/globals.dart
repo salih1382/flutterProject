@@ -28,12 +28,12 @@ Future<void> update() async {
 }
 
 Future<void> _fetchDoneAssignmentCards() async {
-  final url = Uri.parse('http://10.0.2.2:8080/Assignments');
+  final url = Uri.parse('http://10.0.2.2:8080/DoneAssignmentCards');
   final response = await http.post(url);
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-    _doneAssignmentCardItems = jsonResponse['courses'];
+    _doneAssignmentCardItems = jsonResponse['doneAssignmentCard'];
     doneAssignmentCardWidgets =
         _doneAssignmentCardItems.map<DoneAssignmentsCardWidget>((item) {
       return DoneAssignmentsCardWidget(
@@ -46,12 +46,12 @@ Future<void> _fetchDoneAssignmentCards() async {
 }
 
 Future<void> _fetchCourses() async {
-  final url = Uri.parse('http://10.0.2.2:8080/Assignments');
+  final url = Uri.parse('http://10.0.2.2:8080/Courses');
   final response = await http.post(url);
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-    _courseItems = jsonResponse['courses'];
+    _courseItems = jsonResponse['course'];
     courseWidgets = _courseItems.map<CoursesWidget>((item) {
       return CoursesWidget(
         courseTitle: item['Title'],
@@ -67,12 +67,12 @@ Future<void> _fetchCourses() async {
 }
 
 Future<void> _fetchTasks() async {
-  final url = Uri.parse('http://10.0.2.2:8080/Assignments');
+  final url = Uri.parse('http://10.0.2.2:8080/Tasks');
   final response = await http.post(url);
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
-    _taskItems = jsonResponse['course'];
+    _taskItems = jsonResponse['task'];
     taskWidgets = _taskItems.map<TasksWidget>((item) {
       return TasksWidget(
         name: item['Name'],
