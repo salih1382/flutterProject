@@ -33,9 +33,9 @@ class _TamrinaPageState extends State<TamrinaPage> {
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(bottom: screenHeight * 0.029),
           content: Text(
+            'زمان انتخاب شده: ${picked.formatFullDate()}',
             textAlign: TextAlign.right,
             textDirection: TextDirection.rtl,
-            'زمان انتخاب شده: ${picked.formatFullDate()}',
           ),
           action: SnackBarAction(label: 'باشه', onPressed: () {}),
         ),

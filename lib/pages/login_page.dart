@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'home_page.dart';
 import 'signup_page.dart';
 import 'package:get/get.dart';
+import '../globals.dart' as globals;
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
@@ -23,6 +24,7 @@ class LoginPage extends StatelessWidget {
       socket.listen((Uint8List data) {
         int responseCode = data[0];
         if (responseCode == 0) {
+          globals.update(id);
           Navigator.push(
             context,
             MaterialPageRoute(

@@ -97,10 +97,10 @@ Future<void> _fetchCourses(id) async {
     courseWidgets = _courseItems.map<CoursesWidget>((item) {
       return CoursesWidget(
         courseTitle: item['Title'],
-        teacher: item['Teacher'],
+        teacherFullName: item['Teacher'],
         units: item['Units'],
         remainingAssignments: item['RemainingAssignments'],
-        topStudent: item['TopStudent'],
+        topStudentFullName: item['TopStudent'],
       );
     }).toList();
   } else {

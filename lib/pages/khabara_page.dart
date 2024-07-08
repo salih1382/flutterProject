@@ -11,16 +11,14 @@ class KhabaraPage extends StatefulWidget {
 }
 
 class KhabaraPageState extends State<KhabaraPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _updateNews();
-  // }
-  //
-  Future<void> updateNews() async {
-    setState(() async{
+  @override
+  void initState() {
+    super.initState();
+    _updateNews();
+  }
+
+  Future<void> _updateNews() async {
       await globals.update(widget.id);
-    });
   }
 
   @override

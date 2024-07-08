@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../globals.dart' as globals;
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class KaraPage extends StatefulWidget {
   KaraPage({required this.id, super.key});
@@ -12,14 +13,44 @@ class KaraPage extends StatefulWidget {
 }
 
 class _KaraPageState extends State<KaraPage> {
+  Jalali? _selectedDate = Jalali.now();
   TimeOfDay? _selectedTime = const TimeOfDay(hour: 0, minute: 0);
   String? _textEditing = "";
   final TextEditingController _textEditingController = TextEditingController();
 
+  Future<void> _showDataPicker(BuildContext context) async {
+    var screenHeight = MediaQuery.of(context).size.height;
+
+    Jalali? picked = await showPersianDatePicker(
+      context: context,
+      initialDate: Jalali.now(),
+      firstDate: Jalali(1403),
+      lastDate: Jalali(1420),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
+          content: Text(
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
+            'زمان انتخاب شده: ${picked.formatFullDate()}',
+          ),
+          action: SnackBarAction(label: 'باشه', onPressed: () {}),
+        ),
+      );
+    }
+  }
+
   Future<void> _showTimePicker(BuildContext context) async {
     var screenHeight = MediaQuery.of(context).size.height;
 
-    final TimeOfDay? picked = await showTimePicker(
+    final TimeOfDay? picked = await showPersianTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -31,7 +62,9 @@ class _KaraPageState extends State<KaraPage> {
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(bottom: screenHeight * 0.029),
           content: Text(
-            'زمان انتخاب شده: ${picked.format(context)}',
+            'زمان انتخاب شده: ${picked.persianFormat(context)}',
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
           ),
           action: SnackBarAction(label: 'باشه', onPressed: () {}),
         ),
@@ -75,7 +108,7 @@ class _KaraPageState extends State<KaraPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
                   children: [
-                    Text("24 فروردین 1403",
+                    Text(_selectedDate!.formatFullDate(),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: TextStyle(
@@ -83,10 +116,11 @@ class _KaraPageState extends State<KaraPage> {
                             fontSize: screenWidth * 0.021,
                             fontWeight: FontWeight.bold,
                             color: Colors.black.withOpacity(0.5))),
-                    Icon(
-                      Icons.calendar_month,
-                      color: const Color(0xFF7A0C31),
-                      size: screenWidth * 0.052,
+                    IconButton(
+                      onPressed: () => _showDataPicker(context),
+                      icon: Icon(Icons.calendar_month,
+                          color: const Color(0xFF7A0C31),
+                          size: screenWidth * 0.052),
                     )
                   ],
                 ),
@@ -268,7 +302,7 @@ class _KaraPageState extends State<KaraPage> {
                                     BorderRadius.circular(screenWidth * 0.010),
                               ),
                               child: Center(
-                                child: Text(DateTime.now().toString(),
+                                child: Text(_selectedDate!.formatFullDate(),
                                     textDirection: TextDirection.rtl,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(

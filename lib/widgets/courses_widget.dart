@@ -5,17 +5,17 @@ import '../classes/student.dart';
 class CoursesWidget extends StatelessWidget {
   CoursesWidget(
       {required this.courseTitle,
-      required this.teacher,
+      required this.teacherFullName,
       required this.units,
       required this.remainingAssignments,
-      required this.topStudent,
+      required this.topStudentFullName,
       super.key});
 
   String courseTitle;
-  Teacher teacher;
+  String teacherFullName;
   int units;
   int remainingAssignments;
-  Student topStudent;
+  String topStudentFullName;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class CoursesWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
-                Text("استاد: ${"${teacher.name} ${teacher.familyName}"}",
+                Text("استاد: $teacherFullName",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
@@ -141,7 +141,7 @@ class CoursesWidget extends StatelessWidget {
                       SizedBox(
                         width: screenWidth * 0.010,
                       ),
-                      Text("دانشجوی ممتاز: ${"${topStudent.name} ${topStudent.familyName}"}",
+                      Text("دانشجوی ممتاز: $topStudentFullName",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(

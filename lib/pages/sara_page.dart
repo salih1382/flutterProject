@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import '../globals.dart' as globals;
 
 class SaraPage extends StatefulWidget {
@@ -203,7 +204,7 @@ class _SaraPageState extends State<SaraPage> {
                             fontFamily: "BTitr",
                             fontSize: screenWidth * 0.044,
                             fontWeight: FontWeight.bold)),
-                    Text("17 فروردین 1403",
+                    Text( Jalali.now().formatFullDate(),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: TextStyle(
