@@ -10,6 +10,7 @@ class TamrinaPage extends StatefulWidget {
 }
 
 class _TamrinaPageState extends State<TamrinaPage> {
+  DateTime? _selectedData = DateTime(2023);
   // String? _fileName;
   // String? _filePath;
   //
@@ -23,6 +24,31 @@ class _TamrinaPageState extends State<TamrinaPage> {
   //     });
   //   }
   // }
+
+  Future<void> _showDataPicker(BuildContext context) async {
+    var screenHeight = MediaQuery.of(context).size.height;
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2028),
+    );
+    if (picked != null && picked != _selectedData) {
+      _selectedData = picked;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
+          content: Text(
+            'زمان انتخاب شده: ${picked.toString()}',
+          ),
+          action: SnackBarAction(label: 'باشه', onPressed: () {}),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +94,12 @@ class _TamrinaPageState extends State<TamrinaPage> {
                             fontSize: screenWidth * 0.021,
                             fontWeight: FontWeight.bold,
                             color: Colors.black.withOpacity(0.5))),
-                    Icon(Icons.calendar_month,
-                        color: const Color(0xFF7A0C31),
-                        size: screenWidth * 0.052)
+                    IconButton(
+                      onPressed: () => _showDataPicker(context),
+                      icon: Icon(Icons.calendar_month,
+                          color: const Color(0xFF7A0C31),
+                          size: screenWidth * 0.052),
+                    )
                   ],
                 ),
               ),

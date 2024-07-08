@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
-class classaPage extends StatefulWidget {
-  const classaPage({super.key});
+class ClassaPage extends StatefulWidget {
+  const ClassaPage({super.key});
 
   @override
-  State<classaPage> createState() => _classaPageState();
+  State<ClassaPage> createState() => _ClassaPageState();
 }
 
-class _classaPageState extends State<classaPage> {
+class _ClassaPageState extends State<ClassaPage> {
+  DateTime? _selectedData = DateTime(2023);
+  String? _textEditing = "";
+  final TextEditingController _textEditingController = TextEditingController();
+
+  Future<void> _showDataPicker(BuildContext context) async {
+    var screenHeight = MediaQuery.of(context).size.height;
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2028),
+    );
+    if (picked != null && picked != _selectedData) {
+      _selectedData = picked;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
+          content: Text(
+            'زمان انتخاب شده: ${picked.toString()}',
+          ),
+          action: SnackBarAction(label: 'باشه', onPressed: () {}),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,22 +105,23 @@ class _classaPageState extends State<classaPage> {
                                         decoration: TextDecoration.underline,
                                         decorationThickness:
                                             screenWidth * 0.015,
-                                        decorationColor: const Color(0xFFAFBBC1),
+                                        decorationColor:
+                                            const Color(0xFFAFBBC1),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: screenHeight*0.019,
+                                      height: screenHeight * 0.019,
                                     ),
                                     Row(
                                       textDirection: TextDirection.rtl,
                                       children: [
                                         Icon(
                                           Icons.school,
-                                          size: screenWidth*0.052,
+                                          size: screenWidth * 0.052,
                                           color: const Color(0xFFAFBBC1),
                                         ),
                                         SizedBox(
-                                          width: screenWidth*0.031,
+                                          width: screenWidth * 0.031,
                                         ),
                                         Text("افزودن کلاس جدید",
                                             textDirection: TextDirection.rtl,
@@ -99,12 +129,12 @@ class _classaPageState extends State<classaPage> {
                                             style: TextStyle(
                                                 color: const Color(0xFFAFBBC1),
                                                 fontFamily: "BTitr",
-                                                fontSize: screenWidth*0.044,
+                                                fontSize: screenWidth * 0.044,
                                                 fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     SizedBox(
-                                      height: screenHeight*0.014,
+                                      height: screenHeight * 0.014,
                                     ),
                                     Row(
                                       textDirection: TextDirection.rtl,
@@ -115,32 +145,37 @@ class _classaPageState extends State<classaPage> {
                                             style: TextStyle(
                                                 color: const Color(0xFFAFBBC1),
                                                 fontFamily: "BTitr",
-                                                fontSize: screenWidth*0.029,
+                                                fontSize: screenWidth * 0.029,
                                                 fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     SizedBox(
-                                      height: screenHeight*0.010,
+                                      height: screenHeight * 0.010,
                                     ),
                                     Container(
-                                      width: screenWidth*0.8,
-                                      height: screenHeight*0.072,
+                                      width: screenWidth * 0.8,
+                                      height: screenHeight * 0.072,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFD0D0D0),
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(screenWidth*0.042)),
+                                            Radius.circular(
+                                                screenWidth * 0.042)),
                                         border: Border.all(
                                             color: const Color(0xFF1D7084),
-                                            width: screenWidth*0.006),
+                                            width: screenWidth * 0.006),
                                       ),
                                       child: TextField(
+                                        controller: _textEditingController,
                                         decoration: InputDecoration(
                                             border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
-                                                  Radius.circular(screenWidth*0.042)),
+                                                  Radius.circular(
+                                                      screenWidth * 0.042)),
                                             ),
                                             contentPadding: EdgeInsets.only(
-                                                right: screenWidth*0.042, left: screenWidth*0.042, top: screenHeight*0.041),
+                                                right: screenWidth * 0.042,
+                                                left: screenWidth * 0.042,
+                                                top: screenHeight * 0.041),
                                             hintTextDirection:
                                                 TextDirection.rtl,
                                             hintText:
@@ -148,11 +183,11 @@ class _classaPageState extends State<classaPage> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: screenHeight*0.034,
+                                      height: screenHeight * 0.034,
                                     ),
                                     SizedBox(
-                                      width: screenWidth*0.75,
-                                      height: screenHeight*0.048,
+                                      width: screenWidth * 0.75,
+                                      height: screenHeight * 0.048,
                                       child: ElevatedButton(
                                         style: ButtonStyle(
                                           backgroundColor:
@@ -160,7 +195,14 @@ class _classaPageState extends State<classaPage> {
                                                   (states) =>
                                                       const Color(0xFFAFBBC1)),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            _textEditing =
+                                                _textEditingController
+                                                    .value.text;
+                                          });
+                                          navigator?.pop(context);
+                                        },
                                         child: Text(
                                           "افزودن",
                                           textDirection: TextDirection.rtl,
@@ -168,7 +210,7 @@ class _classaPageState extends State<classaPage> {
                                               color: const Color(0xFF7A0C31),
                                               fontFamily: "BTitr",
                                               fontWeight: FontWeight.bold,
-                                              fontSize: screenWidth*0.044),
+                                              fontSize: screenWidth * 0.044),
                                         ),
                                       ),
                                     ),
@@ -182,7 +224,7 @@ class _classaPageState extends State<classaPage> {
                         icon: Icon(
                           Icons.add_circle,
                           color: const Color(0xFFAFBBC1),
-                          size: screenWidth*0.063,
+                          size: screenWidth * 0.063,
                         ),
                         label: Text("افزودن کلاس",
                             textDirection: TextDirection.rtl,
@@ -190,12 +232,12 @@ class _classaPageState extends State<classaPage> {
                             style: TextStyle(
                                 color: const Color(0xFFAFBBC1),
                                 fontFamily: "BTitr",
-                                fontSize: screenWidth*0.030,
+                                fontSize: screenWidth * 0.030,
                                 fontWeight: FontWeight.bold)))
                   ],
                 ),
               ),
-              SizedBox(height: screenHeight*0.028),
+              SizedBox(height: screenHeight * 0.028),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -210,11 +252,11 @@ class _classaPageState extends State<classaPage> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF7A0C31),
-        onPressed: () {},
+        onPressed: () => _showDataPicker(context),
         child: Icon(
           Icons.calendar_month,
           color: const Color(0xFFAFBBC1),
-          size: screenWidth*0.063,
+          size: screenWidth * 0.063,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

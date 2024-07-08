@@ -210,7 +210,7 @@ class AboutMePage extends StatelessWidget {
                       ),
                       onPressed: () => Get.offAll(const LoginPage()),
                       child: Text(
-                        "حذف از حساب کاربری",
+                        "حذف حساب کاربری",
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             color: const Color(0xFFAFBBC1),

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
             TamrinaPage(),
             KhabaraPage(),
             SaraPage(),
-            classaPage(),
+            ClassaPage(),
             KaraPage(),
           ],
         ),

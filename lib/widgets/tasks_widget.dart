@@ -12,20 +12,33 @@ class TasksWidget extends StatelessWidget {
   bool isDone;
 
   String? intToMonth(int number) {
-    switch(number) {
-      case 1: return "فروردین";
-      case 2: return "اردیبهشت";
-      case 3: return "خرداد";
-      case 4: return "تیر";
-      case 5: return "مرداد";
-      case 6: return "شهریور";
-      case 7: return "مهر";
-      case 8: return "آبان";
-      case 9: return "آذر";
-      case 10: return "دی";
-      case 11: return "بهمن";
-      case 12: return "اسفند";
-      default: return null;
+    switch (number) {
+      case 1:
+        return "فروردین";
+      case 2:
+        return "اردیبهشت";
+      case 3:
+        return "خرداد";
+      case 4:
+        return "تیر";
+      case 5:
+        return "مرداد";
+      case 6:
+        return "شهریور";
+      case 7:
+        return "مهر";
+      case 8:
+        return "آبان";
+      case 9:
+        return "آذر";
+      case 10:
+        return "دی";
+      case 11:
+        return "بهمن";
+      case 12:
+        return "اسفند";
+      default:
+        return null;
     }
   }
 
@@ -75,10 +88,13 @@ class TasksWidget extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.cancel,
-                    color: Colors.red,
-                    size: screenWidth * 0.063,
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: screenWidth * 0.063,
+                    ),
                   ),
                 ],
               )
@@ -126,18 +142,24 @@ class TasksWidget extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.cancel,
-                    color: Colors.red,
-                    size: screenWidth * 0.063,
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.cancel,
+                      color: Colors.red,
+                      size: screenWidth * 0.063,
+                    ),
                   ),
                   SizedBox(
                     width: screenWidth * 0.031,
                   ),
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: screenWidth * 0.063,
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: screenWidth * 0.063,
+                    ),
                   ),
                 ],
               )

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'widgets/assignments_widget.dart';
@@ -8,11 +9,14 @@ import 'widgets/done_assignments_card_widget.dart';
 import 'widgets/news_widget.dart';
 import 'widgets/tasks_widget.dart';
 
+Map<String, dynamic> studentDetails = {};
 var doneAssignmentCardWidgets = <DoneAssignmentsCardWidget>[];
 var courseWidgets = <CoursesWidget>[];
 var taskWidgets = <TasksWidget>[];
 var assignmentWidgets = <AssignmentsWidget>[];
 var newsWidgets = <NewsWidget>[];
+
+Map<String, int> _studentDetails = {};
 List<dynamic> _doneAssignmentCardItems = [];
 List<dynamic> _courseItems = [];
 List<dynamic> _taskItems = [];
@@ -25,6 +29,26 @@ Future<void> update() async {
   await _fetchTasks();
   await _fetchAssignments();
   await _fetchNews();
+}
+
+Future<void> _fetchStudentDetails() async {
+  final url = Uri.parse('http://10.0.2.2:8080/StudentDetails');
+  final response = await http.post(url);
+
+  if (response.statusCode == 200) {
+    final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
+    _studentDetails = jsonResponse['studentDetails'];
+
+    studentDetails = {
+      'RemainingAssignments': _studentDetails['RemainingAssignments'],
+      'RemainingExams': _studentDetails['RemainingExams'],
+      'TopGrade': _studentDetails['TopGrade'],
+      'LowestGrade': _studentDetails['LowestGrade'],
+      'MissedAssignments': _studentDetails['MissedAssignments'],
+    };
+  } else {
+    print('Failed to load studentDetails');
+  }
 }
 
 Future<void> _fetchDoneAssignmentCards() async {
@@ -76,7 +100,7 @@ Future<void> _fetchTasks() async {
     taskWidgets = _taskItems.map<TasksWidget>((item) {
       return TasksWidget(
         name: item['Name'],
-        deadLine: item['DeadLine'],
+        deadLine: DateTime(item['Year'], [item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0] as int),
         isDone: item['IsDone'],
       );
     }).toList();
@@ -95,7 +119,7 @@ Future<void> _fetchAssignments() async {
     assignmentWidgets = _assignmentItems.map<AssignmentsWidget>((item) {
       return AssignmentsWidget(
         assignmentTitle: item['Title'],
-        deadLine: item['DeadLine'],
+        deadLine: DateTime(item['Year'], [item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0] as int),
         isDone: item['IsDone'],
       );
     }).toList();
