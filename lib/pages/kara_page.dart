@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 
-class karaPage extends StatefulWidget {
-  const karaPage({super.key});
+class KaraPage extends StatefulWidget {
+  const KaraPage({super.key});
 
   @override
-  State<karaPage> createState() => _karaPageState();
+  State<KaraPage> createState() => _KaraPageState();
 }
 
-class _karaPageState extends State<karaPage> {
+class _KaraPageState extends State<KaraPage> {
   TimeOfDay? _selectedTime;
 
   Future<void> _showTimePicker(BuildContext context) async {

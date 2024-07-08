@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../globals.dart' as globals;
 
-class tamrinaPage extends StatefulWidget {
-  const tamrinaPage({super.key});
+class TamrinaPage extends StatefulWidget {
+  const TamrinaPage({super.key});
 
   @override
-  State<tamrinaPage> createState() => _tamrinaPageState();
+  State<TamrinaPage> createState() => _TamrinaPageState();
 }
 
-class _tamrinaPageState extends State<tamrinaPage> {
+class _TamrinaPageState extends State<TamrinaPage> {
   String? _fileName;
   String? _filePath;
 

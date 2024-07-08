@@ -206,7 +206,7 @@ class AboutMePage extends StatelessWidget {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => const Color(0xFF7A0C31)),
+                                (states) => Colors.black),
                       ),
                       onPressed: () => Get.offAll(const LoginPage()),
                       child: Text(
@@ -216,6 +216,27 @@ class AboutMePage extends StatelessWidget {
                             color: const Color(0xFFAFBBC1),
                             fontWeight: FontWeight.w600,
                             fontSize: screenWidth * 0.04,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight *0.01),
+                  SizedBox(
+                    width: screenWidth * 0.75,
+                    height: screenHeight * 0.06,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateColor.resolveWith(
+                                (states) => const Color(0xFF7A0C31)),
+                      ),
+                      onPressed: () => Get.offAll(const LoginPage()),
+                      child: Text(
+                        "خروج از حساب کاربری",
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                          color: const Color(0xFFAFBBC1),
+                          fontWeight: FontWeight.w600,
+                          fontSize: screenWidth * 0.04,
                         ),
                       ),
                     ),

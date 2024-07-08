@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 
-class saraPage extends StatefulWidget {
-  const saraPage({super.key});
+class SaraPage extends StatefulWidget {
+  const SaraPage({super.key});
 
   @override
-  State<saraPage> createState() => _saraPageState();
+  State<SaraPage> createState() => _SaraPageState();
 }
 
-class _saraPageState extends State<saraPage> {
+class _SaraPageState extends State<SaraPage> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 
-class khabaraPage extends StatefulWidget {
-  const khabaraPage({super.key});
+class KhabaraPage extends StatefulWidget {
+  const KhabaraPage({super.key});
 
   @override
-  State<khabaraPage> createState() => _khabaraPageState();
+  State<KhabaraPage> createState() => KhabaraPageState();
 }
 
-class _khabaraPageState extends State<khabaraPage> {
-  @override
-  void initState() {
-    super.initState();
-    _updateNews();
-  }
-
-  Future<void> _updateNews() async {
-    await globals.update();
-    setState(() {});
+class KhabaraPageState extends State<KhabaraPage> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _updateNews();
+  // }
+  //
+  Future<void> updateNews() async {
+    setState(() async{
+      await globals.update();
+    });
   }
 
   @override

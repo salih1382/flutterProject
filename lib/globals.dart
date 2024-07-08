@@ -41,7 +41,7 @@ Future<void> _fetchDoneAssignmentCards() async {
       );
     }).toList();
   } else {
-    print('Failed to load news');
+    print('Failed to load doneAssignmentCards');
   }
 }
 
@@ -62,7 +62,7 @@ Future<void> _fetchCourses() async {
       );
     }).toList();
   } else {
-    print('Failed to load news');
+    print('Failed to load courses');
   }
 }
 
@@ -81,7 +81,7 @@ Future<void> _fetchTasks() async {
       );
     }).toList();
   } else {
-    print('Failed to load news');
+    print('Failed to load tasks');
   }
 }
 
@@ -100,7 +100,7 @@ Future<void> _fetchAssignments() async {
       );
     }).toList();
   } else {
-    print('Failed to load news');
+    print('Failed to load assignments');
   }
 }
 

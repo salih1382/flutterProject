@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'login_page.dart';
 import 'about_me_page.dart';
 import 'sara_page.dart';
 import 'kara_page.dart';
 import 'classa_page.dart';
 import 'tamrina_page.dart';
 import 'khabara_page.dart';
+import '../globals.dart' as globals;
 
 const _kPages = <String, IconData>{
   'تمرینا': Icons.edit_note,
@@ -16,14 +18,14 @@ const _kPages = <String, IconData>{
   'کارا': Icons.checklist,
 };
 
-class ConvexAppExample extends StatefulWidget {
-  const ConvexAppExample({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  _ConvexAppExampleState createState() => _ConvexAppExampleState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _ConvexAppExampleState extends State<ConvexAppExample> {
+class _HomePageState extends State<HomePage> {
   final TabStyle _tabStyle = TabStyle.reactCircle;
 
   @override
@@ -37,11 +39,11 @@ class _ConvexAppExampleState extends State<ConvexAppExample> {
       child: Scaffold(
         body: const TabBarView(
           children: [
-            tamrinaPage(),
-            khabaraPage(),
-            saraPage(),
+            TamrinaPage(),
+            KhabaraPage(),
+            SaraPage(),
             classaPage(),
-            karaPage(),
+            KaraPage(),
           ],
         ),
         appBar: AppBar(
@@ -49,30 +51,36 @@ class _ConvexAppExampleState extends State<ConvexAppExample> {
             icon: Icon(
               Icons.person,
               color: const Color(0xFFAFBBC1),
-              size: screenWidth*0.131,
+              size: screenWidth * 0.131,
             ),
             onPressed: () => Get.to(const AboutMePage()),
           ),
           actions: [
-            Text("خروج",
-                textDirection: TextDirection.rtl,
-                textAlign: TextAlign.right,
-                style: TextStyle(
+            MaterialButton(
+              onPressed: () => Get.offAll(const LoginPage()),
+              child: Row(
+                children: [
+                  Text("خروج",
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          color: const Color(0xFFAFBBC1),
+                          fontFamily: "BTitr",
+                          fontSize: screenWidth * 0.044,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(
+                    width: screenWidth * 0.010,
+                  ),
+                  Icon(
+                    Icons.exit_to_app,
                     color: const Color(0xFFAFBBC1),
-                    fontFamily: "BTitr",
-                    fontSize: screenWidth*0.044,
-                    fontWeight: FontWeight.bold)),
-            SizedBox(width: screenWidth*0.010,),
-            Icon(
-              Icons.exit_to_app,
-              color: const Color(0xFFAFBBC1),
-              size: screenWidth*0.131,
-            ),
-            SizedBox(
-              width: screenWidth*0.031,
+                    size: screenWidth * 0.131,
+                  )
+                ],
+              ),
             )
           ],
-          toolbarHeight: screenHeight*0.077,
+          toolbarHeight: screenHeight * 0.077,
           elevation: 10,
           shadowColor: Colors.black,
           backgroundColor: const Color(0xFF7A0C31),
