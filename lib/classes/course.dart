@@ -118,7 +118,7 @@ class Course {
     var studentString = 'Students:\n';
     var cntr = 1;
     for (var student in mapOfGrades.keys) {
-      studentString += '$cntr.${student}\n';
+      studentString += '$cntr.$student\n';
       cntr++;
     }
     return studentString;

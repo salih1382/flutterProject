@@ -92,7 +92,6 @@ class _HomePageState extends State<HomePage> {
             for (final entry in _kPages.entries)
               TabItem(icon: entry.value, title: entry.key),
           ],
-          onTap: (int i) => print('click index=$i'),
         ),
       ),
     );

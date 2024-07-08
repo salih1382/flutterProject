@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import '../globals.dart' as globals;
+// import 'package:file_picker/file_picker.dart';
 
 class TamrinaPage extends StatefulWidget {
   const TamrinaPage({super.key});
@@ -10,19 +10,19 @@ class TamrinaPage extends StatefulWidget {
 }
 
 class _TamrinaPageState extends State<TamrinaPage> {
-  String? _fileName;
-  String? _filePath;
-
-  Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      setState(() {
-        _fileName = result.files.single.name;
-        _filePath = result.files.single.path;
-      });
-    }
-  }
+  // String? _fileName;
+  // String? _filePath;
+  //
+  // Future<void> _pickFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //
+  //   if (result != null) {
+  //     setState(() {
+  //       _fileName = result.files.single.name;
+  //       _filePath = result.files.single.path;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

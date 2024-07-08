@@ -12,7 +12,6 @@ class _KaraPageState extends State<KaraPage> {
   TimeOfDay? _selectedTime;
 
   Future<void> _showTimePicker(BuildContext context) async {
-    var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
 
     final TimeOfDay? picked = await showTimePicker(
@@ -156,7 +155,7 @@ class _KaraPageState extends State<KaraPage> {
                         Icon(
                           Icons.edit_calendar,
                           size: screenWidth*0.052,
-                          color: Color(0xFFAFBBC1),
+                          color: const Color(0xFFAFBBC1),
                         ),
                         SizedBox(
                           width: screenWidth*0.031,
