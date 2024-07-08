@@ -1,48 +1,41 @@
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
-// import 'package:file_picker/file_picker.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class TamrinaPage extends StatefulWidget {
-  const TamrinaPage({super.key});
+  TamrinaPage({required this.id, super.key});
+
+  String id;
 
   @override
   State<TamrinaPage> createState() => _TamrinaPageState();
 }
 
 class _TamrinaPageState extends State<TamrinaPage> {
-  DateTime? _selectedData = DateTime(2023);
-  // String? _fileName;
-  // String? _filePath;
-  //
-  // Future<void> _pickFile() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //
-  //   if (result != null) {
-  //     setState(() {
-  //       _fileName = result.files.single.name;
-  //       _filePath = result.files.single.path;
-  //     });
-  //   }
-  // }
+  Jalali? _selectedDate = Jalali.now();
 
   Future<void> _showDataPicker(BuildContext context) async {
     var screenHeight = MediaQuery.of(context).size.height;
 
-    final DateTime? picked = await showDatePicker(
+    Jalali? picked = await showPersianDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2028),
+      initialDate: Jalali.now(),
+      firstDate: Jalali(1403),
+      lastDate: Jalali(1420),
     );
-    if (picked != null && picked != _selectedData) {
-      _selectedData = picked;
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(bottom: screenHeight * 0.029),
           content: Text(
-            'زمان انتخاب شده: ${picked.toString()}',
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
+            'زمان انتخاب شده: ${picked.formatFullDate()}',
           ),
           action: SnackBarAction(label: 'باشه', onPressed: () {}),
         ),
@@ -86,7 +79,7 @@ class _TamrinaPageState extends State<TamrinaPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
                   children: [
-                    Text("24 فروردین 1403",
+                    Text(_selectedDate!.formatFullDate(),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.right,
                         style: TextStyle(

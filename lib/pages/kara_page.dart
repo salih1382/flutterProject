@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
 class KaraPage extends StatefulWidget {
-  const KaraPage({super.key});
+  KaraPage({required this.id, super.key});
+
+  String id;
 
   @override
   State<KaraPage> createState() => _KaraPageState();

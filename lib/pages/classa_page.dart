@@ -1,43 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../globals.dart' as globals;
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class ClassaPage extends StatefulWidget {
-  const ClassaPage({super.key});
+  ClassaPage({required this.id, super.key});
+
+  String id;
 
   @override
   State<ClassaPage> createState() => _ClassaPageState();
 }
 
 class _ClassaPageState extends State<ClassaPage> {
-  DateTime? _selectedData = DateTime(2023);
   String? _textEditing = "";
   final TextEditingController _textEditingController = TextEditingController();
-
-  Future<void> _showDataPicker(BuildContext context) async {
-    var screenHeight = MediaQuery.of(context).size.height;
-
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2028),
-    );
-    if (picked != null && picked != _selectedData) {
-      _selectedData = picked;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
-          content: Text(
-            'زمان انتخاب شده: ${picked.toString()}',
-          ),
-          action: SnackBarAction(label: 'باشه', onPressed: () {}),
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -249,17 +226,6 @@ class _ClassaPageState extends State<ClassaPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        backgroundColor: const Color(0xFF7A0C31),
-        onPressed: () => _showDataPicker(context),
-        child: Icon(
-          Icons.calendar_month,
-          color: const Color(0xFFAFBBC1),
-          size: screenWidth * 0.063,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 }

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'login_page.dart';
 
 class AboutMePage extends StatelessWidget {
-  const AboutMePage({super.key});
+  AboutMePage({required this.id, super.key});
+
+  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +210,7 @@ class AboutMePage extends StatelessWidget {
                         backgroundColor: MaterialStateColor.resolveWith(
                                 (states) => Colors.black),
                       ),
-                      onPressed: () => Get.offAll(const LoginPage()),
+                      onPressed: () => Get.offAll(LoginPage()),
                       child: Text(
                         "حذف حساب کاربری",
                         textDirection: TextDirection.rtl,
@@ -229,7 +231,7 @@ class AboutMePage extends StatelessWidget {
                         backgroundColor: MaterialStateColor.resolveWith(
                                 (states) => const Color(0xFF7A0C31)),
                       ),
-                      onPressed: () => Get.offAll(const LoginPage()),
+                      onPressed: () => Get.offAll(LoginPage()),
                       child: Text(
                         "خروج از حساب کاربری",
                         textDirection: TextDirection.rtl,

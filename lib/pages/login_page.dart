@@ -1,11 +1,46 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'signup_page.dart';
+import 'package:http/http.dart' as http;
 import 'home_page.dart';
-import '../globals.dart' as globals;
+import 'signup_page.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login(BuildContext context) async {
+    String id = _idController.text;
+    String password = _passwordController.text;
+    Socket socket;
+    try {
+      socket = await Socket.connect('10.0.2.2', 5000);
+
+      String message = 'Login-$id-$password';
+      socket.write(message);
+
+      socket.listen((Uint8List data) {
+        int responseCode = data[0];
+        if (responseCode == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage(
+                      id: id,
+                    )),
+          );
+        } else if (responseCode == 1) {
+          print('Login failed: Incorrect ID or password.');
+        } else {
+          print('Unexpected response from server: $responseCode');
+        }
+      });
+      await socket.close();
+    } catch (e) {
+      print('Failed to connect to the server: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +55,12 @@ class LoginPage extends StatelessWidget {
           width: screenWidth,
           child: Column(
             children: [
+              SizedBox(height: screenHeight * 0.08),
               SizedBox(
-                height: screenHeight * 0.08,
+                width: screenWidth * 0.24,
+                child: Image.asset("assets/images/SbuLogo.png"),
               ),
-              SizedBox(
-                  width: screenWidth * 0.24,
-                  child: Image.asset("assets/images/SbuLogo.png")),
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
+              SizedBox(height: screenHeight * 0.05),
               SizedBox(
                 width: screenWidth * 0.8,
                 child: Column(
@@ -51,6 +83,7 @@ class LoginPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
+                            controller: _idController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -61,7 +94,7 @@ class LoginPage extends StatelessWidget {
                                     left: screenWidth * 0.12,
                                     top: screenHeight * 0.030),
                                 hintTextDirection: TextDirection.rtl,
-                                hintText: "نام کاربری"),
+                                hintText: "شماره دانشجویی"),
                           ),
                         ),
                       ),
@@ -79,16 +112,14 @@ class LoginPage extends StatelessWidget {
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
-                            Icons.person_outline_rounded,
+                            Icons.contacts_outlined,
                             color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
                         ),
                       ),
                     ]),
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
+                    SizedBox(height: screenHeight * 0.01),
                     Stack(children: [
                       Align(
                         alignment: Alignment.centerLeft,
@@ -107,6 +138,7 @@ class LoginPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextField(
+                            controller: _passwordController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -118,6 +150,7 @@ class LoginPage extends StatelessWidget {
                                     top: screenHeight * 0.030),
                                 hintTextDirection: TextDirection.rtl,
                                 hintText: "رمز عبور"),
+                            obscureText: true,
                           ),
                         ),
                       ),
@@ -142,15 +175,11 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ]),
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
+                    SizedBox(height: screenHeight * 0.01),
                   ],
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.03,
-              ),
+              SizedBox(height: screenHeight * 0.03),
               SizedBox(
                 width: screenWidth * 0.75,
                 height: screenHeight * 0.06,
@@ -159,10 +188,8 @@ class LoginPage extends StatelessWidget {
                     backgroundColor: MaterialStateColor.resolveWith(
                         (states) => const Color(0xFF7A0C31)),
                   ),
-                  onPressed: () {
-                    globals.update();
-                    Get.offAll(() => const HomePage());
-                  },
+                  onPressed: () => _login(context),
+                  // Pass context to _login method
                   child: Text(
                     "ورود به حساب کاربری",
                     textDirection: TextDirection.rtl,
@@ -173,26 +200,23 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.025,
-              ),
+              SizedBox(height: screenHeight * 0.025),
               TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "بازیابی کلمه عبور",
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                        color: const Color(0xFF0029FF),
-                        fontSize: screenWidth * 0.05,
-                        fontFamily: "BNazanin",
-                        fontWeight: FontWeight.w800,
-                        decoration: TextDecoration.underline,
-                        decorationColor: const Color(0xFF0029FF),
-                        decorationThickness: screenWidth * 0.005),
-                  )),
-              SizedBox(
-                height: screenHeight * 0.01,
+                onPressed: () {},
+                child: Text(
+                  "بازیابی کلمه عبور",
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                      color: const Color(0xFF0029FF),
+                      fontSize: screenWidth * 0.05,
+                      fontFamily: "BNazanin",
+                      fontWeight: FontWeight.w800,
+                      decoration: TextDecoration.underline,
+                      decorationColor: const Color(0xFF0029FF),
+                      decorationThickness: screenWidth * 0.005),
+                ),
               ),
+              SizedBox(height: screenHeight * 0.01),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 textDirection: TextDirection.rtl,
@@ -207,19 +231,20 @@ class LoginPage extends StatelessWidget {
                         fontWeight: FontWeight.w800),
                   ),
                   TextButton(
-                      onPressed: () => Get.offAll(const SignUpPage()),
-                      child: Text(
-                        "ثبت نام",
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                            color: const Color(0xFF0029FF),
-                            fontSize: screenWidth * 0.05,
-                            fontFamily: "BNazanin",
-                            fontWeight: FontWeight.w800,
-                            decoration: TextDecoration.underline,
-                            decorationColor: const Color(0xFF0029FF),
-                            decorationThickness: screenWidth * 0.005),
-                      )),
+                    onPressed: () => Get.offAll(SignUpPage()),
+                    child: Text(
+                      "ثبت نام",
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                          color: const Color(0xFF0029FF),
+                          fontSize: screenWidth * 0.05,
+                          fontFamily: "BNazanin",
+                          fontWeight: FontWeight.w800,
+                          decoration: TextDecoration.underline,
+                          decorationColor: const Color(0xFF0029FF),
+                          decorationThickness: screenWidth * 0.005),
+                    ),
+                  ),
                   Text(
                     "کنید.",
                     textDirection: TextDirection.rtl,
@@ -232,15 +257,17 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               Expanded(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
                     SizedBox(
                       width: screenWidth,
                       child: Image.asset("assets/images/sbu-building.png"),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -1,9 +1,45 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_project/pages/login_page.dart';
 import 'package:get/get.dart';
 
+import 'home_page.dart';
+import 'login_page.dart';
+import 'package:http/http.dart' as http;
+
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  SignUpPage({super.key});
+
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
+  void _signup(BuildContext context) async {
+    String id = _idController.text;
+    String password = _passwordController.text;
+    String email = _emailController.text;
+    ;
+
+    var url = Uri.parse('http://10.0.2.2:8080/SignUp');
+    var response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id': id, 'password': password, 'email': email}),
+    );
+
+    if (response.statusCode == 210) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    id: id,
+                  )));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid credentials')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +85,7 @@ class SignUpPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
+                            controller: _idController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -59,7 +96,7 @@ class SignUpPage extends StatelessWidget {
                                     left: screenWidth * 0.12,
                                     top: screenHeight * 0.030),
                                 hintTextDirection: TextDirection.rtl,
-                                hintText: "نام کاربری"),
+                                hintText: "شماره دانشجویی"),
                           ),
                         ),
                       ),
@@ -77,13 +114,14 @@ class SignUpPage extends StatelessWidget {
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
-                            Icons.person_outline_rounded,
+                            Icons.contacts_outlined,
                             color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
                         ),
                       ),
                     ]),
+                    /**/
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
@@ -105,6 +143,7 @@ class SignUpPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextField(
+                            controller: _passwordController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -161,6 +200,7 @@ class SignUpPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
+                            controller: _emailController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -171,7 +211,7 @@ class SignUpPage extends StatelessWidget {
                                     left: screenWidth * 0.12,
                                     top: screenHeight * 0.030),
                                 hintTextDirection: TextDirection.rtl,
-                                hintText: "شماره دانشجویی"),
+                                hintText: "ایمیل"),
                           ),
                         ),
                       ),
@@ -189,7 +229,7 @@ class SignUpPage extends StatelessWidget {
                                 Radius.circular(screenWidth * 0.4)),
                           ),
                           child: Icon(
-                            Icons.contacts_outlined,
+                            Icons.person_outline_rounded,
                             color: const Color(0xFF1D7084),
                             size: screenWidth * 0.1,
                           ),
@@ -210,7 +250,7 @@ class SignUpPage extends StatelessWidget {
                     backgroundColor: MaterialStateColor.resolveWith(
                         (states) => const Color(0xFF7A0C31)),
                   ),
-                  onPressed: () {},
+                  onPressed: () => _signup(context),
                   child: Text(
                     "ورود به حساب کاربری",
                     textDirection: TextDirection.rtl,
@@ -238,7 +278,7 @@ class SignUpPage extends StatelessWidget {
                         fontWeight: FontWeight.w800),
                   ),
                   TextButton(
-                      onPressed: () => Get.offAll(const LoginPage()),
+                      onPressed: () => Get.offAll(LoginPage()),
                       child: Text(
                         "وارد شوید!",
                         textDirection: TextDirection.rtl,

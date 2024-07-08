@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 
 class SaraPage extends StatefulWidget {
-  const SaraPage({super.key});
+  SaraPage({required this.id, super.key});
+
+  String id;
 
   @override
   State<SaraPage> createState() => _SaraPageState();

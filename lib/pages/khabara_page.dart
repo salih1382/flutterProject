@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 
 class KhabaraPage extends StatefulWidget {
-  const KhabaraPage({super.key});
+  KhabaraPage({required this.id, super.key});
+
+  String id;
 
   @override
   State<KhabaraPage> createState() => KhabaraPageState();
@@ -17,7 +19,7 @@ class KhabaraPageState extends State<KhabaraPage> {
   //
   Future<void> updateNews() async {
     setState(() async{
-      await globals.update();
+      await globals.update(widget.id);
     });
   }
 

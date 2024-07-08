@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -18,7 +19,9 @@ const _kPages = <String, IconData>{
 };
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({required this.id, super.key});
+
+  String id;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,6 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TabStyle _tabStyle = TabStyle.reactCircle;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +40,13 @@ class _HomePageState extends State<HomePage> {
       length: 5,
       initialIndex: 2,
       child: Scaffold(
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            TamrinaPage(),
-            KhabaraPage(),
-            SaraPage(),
-            ClassaPage(),
-            KaraPage(),
+            TamrinaPage(id: widget.id,),
+            KhabaraPage(id: widget.id,),
+            SaraPage(id: widget.id,),
+            ClassaPage(id: widget.id,),
+            KaraPage(id: widget.id),
           ],
         ),
         appBar: AppBar(
@@ -52,11 +56,11 @@ class _HomePageState extends State<HomePage> {
               color: const Color(0xFFAFBBC1),
               size: screenWidth * 0.131,
             ),
-            onPressed: () => Get.to(const AboutMePage()),
+            onPressed: () => Get.to(AboutMePage(id: widget.id,)),
           ),
           actions: [
             MaterialButton(
-              onPressed: () => Get.offAll(const LoginPage()),
+              onPressed: () => Get.offAll(LoginPage()),
               child: Row(
                 children: [
                   Text("خروج",

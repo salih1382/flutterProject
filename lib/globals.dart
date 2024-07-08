@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'widgets/assignments_widget.dart';
@@ -23,23 +22,34 @@ List<dynamic> _taskItems = [];
 List<dynamic> _assignmentItems = [];
 List<dynamic> _newsItems = [];
 
-Future<void> update() async {
-  await _fetchDoneAssignmentCards();
-  await _fetchCourses();
-  await _fetchTasks();
-  await _fetchAssignments();
+Future<void> update(id) async {
+  await _fetchStudentDetails(id);
+  await _fetchDoneAssignmentCards(id);
+  await _fetchCourses(id);
+  await _fetchTasks(id);
+  await _fetchAssignments(id);
   await _fetchNews();
 }
 
-Future<void> _fetchStudentDetails() async {
+Future<void> _fetchStudentDetails(id) async {
   final url = Uri.parse('http://10.0.2.2:8080/StudentDetails');
-  final response = await http.post(url);
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'id': id}),
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
     _studentDetails = jsonResponse['studentDetails'];
 
     studentDetails = {
+      'Name' : _studentDetails['Name'],
+      'Lastname' : _studentDetails['Lastname'],
+      'Username' : _studentDetails['Username'],
+      'Password' : _studentDetails['Password'],
+      'Units' : _studentDetails['Units'],
+      'GPA' : _studentDetails['GPA'],
       'RemainingAssignments': _studentDetails['RemainingAssignments'],
       'RemainingExams': _studentDetails['RemainingExams'],
       'TopGrade': _studentDetails['TopGrade'],
@@ -51,9 +61,13 @@ Future<void> _fetchStudentDetails() async {
   }
 }
 
-Future<void> _fetchDoneAssignmentCards() async {
+Future<void> _fetchDoneAssignmentCards(String id) async {
   final url = Uri.parse('http://10.0.2.2:8080/DoneAssignmentCards');
-  final response = await http.post(url);
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'id': id}),
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
@@ -69,9 +83,13 @@ Future<void> _fetchDoneAssignmentCards() async {
   }
 }
 
-Future<void> _fetchCourses() async {
+Future<void> _fetchCourses(id) async {
   final url = Uri.parse('http://10.0.2.2:8080/Courses');
-  final response = await http.post(url);
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'id': id}),
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
@@ -90,9 +108,13 @@ Future<void> _fetchCourses() async {
   }
 }
 
-Future<void> _fetchTasks() async {
+Future<void> _fetchTasks(id) async {
   final url = Uri.parse('http://10.0.2.2:8080/Tasks');
-  final response = await http.post(url);
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'id': id}),
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
@@ -109,9 +131,13 @@ Future<void> _fetchTasks() async {
   }
 }
 
-Future<void> _fetchAssignments() async {
+Future<void> _fetchAssignments(id) async {
   final url = Uri.parse('http://10.0.2.2:8080/Assignments');
-  final response = await http.post(url);
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({'id': id}),
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
