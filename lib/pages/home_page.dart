@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'login_page.dart';
 import 'about_me_page.dart';
@@ -56,11 +54,15 @@ class _HomePageState extends State<HomePage> {
               color: const Color(0xFFAFBBC1),
               size: screenWidth * 0.131,
             ),
-            onPressed: () => Get.to(AboutMePage(id: widget.id,)),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AboutMePage(id: widget.id))),
           ),
           actions: [
             MaterialButton(
-              onPressed: () => Get.offAll(LoginPage()),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                    (Route<dynamic> route) => false,
+              ),
               child: Row(
                 children: [
                   Text("خروج",

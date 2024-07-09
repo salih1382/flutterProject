@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'login_page.dart';
 
 class AboutMePage extends StatelessWidget {
@@ -58,7 +57,8 @@ class AboutMePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: const Color(0xFF7A0C31),
                       border: Border.all(
-                          color: const Color(0xFF64122D), width: screenWidth * 0.007),
+                          color: const Color(0xFF64122D),
+                          width: screenWidth * 0.007),
                       borderRadius:
                           BorderRadius.all(Radius.circular(screenWidth * 0.04)),
                     ),
@@ -201,37 +201,39 @@ class AboutMePage extends StatelessWidget {
                     ),
                     style: const ButtonStyle(),
                   ),
-                  SizedBox(height: screenHeight *0.04),
+                  SizedBox(height: screenHeight * 0.04),
                   SizedBox(
                     width: screenWidth * 0.75,
                     height: screenHeight * 0.06,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.black),
+                            (states) => Colors.black),
                       ),
-                      onPressed: () => Get.offAll(LoginPage()),
+                      onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage())),
                       child: Text(
                         "حذف حساب کاربری",
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
-                            color: const Color(0xFFAFBBC1),
-                            fontWeight: FontWeight.w600,
-                            fontSize: screenWidth * 0.04,
+                          color: const Color(0xFFAFBBC1),
+                          fontWeight: FontWeight.w600,
+                          fontSize: screenWidth * 0.04,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: screenHeight *0.01),
+                  SizedBox(height: screenHeight * 0.01),
                   SizedBox(
                     width: screenWidth * 0.75,
                     height: screenHeight * 0.06,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => const Color(0xFF7A0C31)),
+                            (states) => const Color(0xFF7A0C31)),
                       ),
-                      onPressed: () => Get.offAll(LoginPage()),
+                      onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage())),
                       child: Text(
                         "خروج از حساب کاربری",
                         textDirection: TextDirection.rtl,

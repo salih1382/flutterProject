@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../globals.dart' as globals;
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
@@ -178,7 +177,7 @@ class _ClassaPageState extends State<ClassaPage> {
                                                 _textEditingController
                                                     .value.text;
                                           });
-                                          navigator?.pop(context);
+                                          Navigator.pop(context);
                                         },
                                         child: Text(
                                           "افزودن",

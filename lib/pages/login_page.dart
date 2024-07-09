@@ -1,15 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'home_page.dart';
 import 'signup_page.dart';
-import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _obscureText = true;
 
   void _login(BuildContext context) async {
     String id = _idController.text;
@@ -24,13 +29,11 @@ class LoginPage extends StatelessWidget {
       socket.listen((Uint8List data) {
         int responseCode = data[0];
         if (responseCode == 0) {
+          print("object");
           globals.update(id);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage(
-                      id: id,
-                    )),
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => HomePage(id: id)),
+            (Route<dynamic> route) => false,
           );
         } else if (responseCode == 1) {
           print('Login failed: Incorrect ID or password.');
@@ -85,6 +88,7 @@ class LoginPage extends StatelessWidget {
                                 width: screenWidth * 0.00625),
                           ),
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: _idController,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -139,20 +143,32 @@ class LoginPage extends StatelessWidget {
                                 color: const Color(0xFF1D7084),
                                 width: screenWidth * 0.00625),
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             controller: _passwordController,
+                            obscureText: _obscureText,
                             decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(screenWidth * 0.4)),
-                                ),
-                                contentPadding: EdgeInsets.only(
-                                    right: screenWidth * 0.12,
-                                    left: screenWidth * 0.042,
-                                    top: screenHeight * 0.030),
-                                hintTextDirection: TextDirection.rtl,
-                                hintText: "رمز عبور"),
-                            obscureText: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(screenWidth * 0.4)),
+                              ),
+                              contentPadding: EdgeInsets.only(
+                                right: screenWidth * 0.12,
+                                left: screenWidth * 0.042,
+                                top: screenHeight * 0.030,
+                              ),
+                              hintTextDirection: TextDirection.rtl,
+                              hintText: 'رمز عبور',
+                              prefixIcon: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                                child: Icon(_obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -202,23 +218,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight * 0.025),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  "بازیابی کلمه عبور",
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                      color: const Color(0xFF0029FF),
-                      fontSize: screenWidth * 0.05,
-                      fontFamily: "BNazanin",
-                      fontWeight: FontWeight.w800,
-                      decoration: TextDecoration.underline,
-                      decorationColor: const Color(0xFF0029FF),
-                      decorationThickness: screenWidth * 0.005),
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.01),
+              SizedBox(height: screenHeight * 0.050),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 textDirection: TextDirection.rtl,
@@ -233,7 +233,10 @@ class LoginPage extends StatelessWidget {
                         fontWeight: FontWeight.w800),
                   ),
                   TextButton(
-                    onPressed: () => Get.offAll(SignUpPage()),
+                    onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                          (Route<dynamic> route) => false,
+                    ),
                     child: Text(
                       "ثبت نام",
                       textDirection: TextDirection.rtl,
@@ -272,6 +275,65 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    this.passwordController,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    this.onSaved,
+    this.validator,
+    this.onFieldSubmitted,
+  });
+
+  final TextEditingController? passwordController;
+  final String? hintText;
+  final String? labelText;
+  final String? helperText;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onFieldSubmitted;
+
+  @override
+  _PasswordFieldState createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
+    return TextFormField(
+      controller: widget.passwordController,
+      obscureText: _obscureText,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(screenWidth * 0.4)),
+        ),
+        contentPadding: EdgeInsets.only(
+          right: screenWidth * 0.12,
+          left: screenWidth * 0.042,
+          top: screenHeight * 0.030,
+        ),
+        filled: true,
+        hintTextDirection: TextDirection.rtl,
+        hintText: widget.hintText,
+        prefixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
         ),
       ),
     );

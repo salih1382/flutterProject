@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'pages/login_page.dart';
 
 void main() {
-  runApp(GetMaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: LoginPage(),
   ));

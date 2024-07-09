@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../globals.dart' as globals;
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
@@ -352,7 +351,7 @@ class _KaraPageState extends State<KaraPage> {
                           setState(() {
                             _textEditing = _textEditingController.value.text;
                           });
-                          navigator?.pop(context);
+                          Navigator.pop(context);
                         },
                         child: Text(
                           "افزودن",
