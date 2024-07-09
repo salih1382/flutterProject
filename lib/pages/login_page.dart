@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
     Socket socket;
     try {
-      socket = await Socket.connect('10.0.2.2', 5000);
+      socket = await Socket.connect('192.168.160.106', 5000);
 
       String message = 'Login-$id-$password';
       socket.write(message);

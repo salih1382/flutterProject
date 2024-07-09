@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import '../globals.dart' as globals;
 
 class AboutMePage extends StatelessWidget {
   AboutMePage({required this.id, super.key});
@@ -12,6 +13,20 @@ class AboutMePage extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        shape: const CircleBorder(),
+        backgroundColor: const Color(0xFF7A0C31),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: const Color(0xFFAFBBC1),
+          size: screenWidth * 0.063,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
         color: const Color(0xFF7A0C31),
         child: Column(
@@ -20,10 +35,17 @@ class AboutMePage extends StatelessWidget {
             CircleAvatar(
               radius: screenWidth * 0.13,
               backgroundColor: const Color(0xFFAFBBC1),
+              child: Icon(
+                Icons.person,
+                color: const Color(0xFF7A0C31),
+                size: screenWidth * 0.2,
+              ),
             ),
             SizedBox(height: screenHeight * 0.017),
             Text(
-              "سیدعلی حسینی",
+              globals.studentDetails['Name'] +
+                  ' ' +
+                  globals.studentDetails['Lastname'],
               textDirection: TextDirection.rtl,
               style: TextStyle(
                   color: Colors.white,
@@ -80,7 +102,7 @@ class AboutMePage extends StatelessWidget {
                                     fontSize: screenWidth * 0.04),
                               ),
                               Text(
-                                "400248027",
+                                id,
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -130,7 +152,7 @@ class AboutMePage extends StatelessWidget {
                                     fontSize: screenWidth * 0.04),
                               ),
                               Text(
-                                "23",
+                                globals.studentDetails['Units'],
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -155,7 +177,7 @@ class AboutMePage extends StatelessWidget {
                                     fontSize: screenWidth * 0.04),
                               ),
                               Text(
-                                "16.11",
+                                globals.studentDetails['GPA'],
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                     color: Colors.white,

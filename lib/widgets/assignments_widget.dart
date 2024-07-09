@@ -154,7 +154,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                 SizedBox(
                                   width: screenWidth * 0.021,
                                 ),
-                                Text("تمرین مینی پروژه AP",
+                                Text(widget.assignmentTitle,
                                     textDirection: TextDirection.rtl,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
@@ -180,7 +180,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                 SizedBox(
                                   width: screenWidth * 0.021,
                                 ),
-                                Text("3.5 روز دیگر",
+                                Text('${widget.deadLine.difference(DateTime.now()).inDays} روز',
                                     textDirection: TextDirection.rtl,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
@@ -435,7 +435,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                         )),
                   ],
                 ),
-                Text(Jalali.fromDateTime(widget.deadLine).formatFullDate(),
+                Text('${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}' ,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(

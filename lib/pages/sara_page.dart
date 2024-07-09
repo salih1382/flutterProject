@@ -62,7 +62,7 @@ class _SaraPageState extends State<SaraPage> {
                           size: screenWidth * 0.052,
                         ),
                         Text(
-                          "بهترین نمرت 100عه",
+                          "بهترین نمرت ${globals.studentDetails['TopGrade']}عه",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
@@ -89,7 +89,7 @@ class _SaraPageState extends State<SaraPage> {
                           size: screenWidth * 0.052,
                         ),
                         Text(
-                          "2 تا امتحان داری",
+                          "${globals.studentDetails['RemainingExams']} تا امتحان داری",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
@@ -116,7 +116,7 @@ class _SaraPageState extends State<SaraPage> {
                           size: screenWidth * 0.052,
                         ),
                         Text(
-                          "3 تا تمرین داری",
+                          "${globals.studentDetails['RemainingAssignments']} تا تمرین داری",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
@@ -149,7 +149,7 @@ class _SaraPageState extends State<SaraPage> {
                           size: screenWidth * 0.052,
                         ),
                         Text(
-                          "2 تا تمرین پرید",
+                          "${globals.studentDetails['MissedAssignments']} تا تمرین پرید",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
@@ -176,7 +176,7 @@ class _SaraPageState extends State<SaraPage> {
                           size: screenWidth * 0.052,
                         ),
                         Text(
-                          "بدترین نمرت 10عه",
+                          "بدترین نمرت ${globals.studentDetails['LowestGrade']}عه",
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                           style: TextStyle(
