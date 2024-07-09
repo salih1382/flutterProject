@@ -18,7 +18,7 @@ class KhabaraPageState extends State<KhabaraPage> {
   }
 
   Future<void> _updateNews() async {
-      await globals.update(widget.id);
+      await globals.fetchNews();
   }
 
   @override
@@ -45,13 +45,31 @@ class KhabaraPageState extends State<KhabaraPage> {
                   children: [
                     Column(
                       children: [
-                        Text("خبرا",
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontFamily: "BTitr",
-                                fontSize: screenWidth*0.044,
-                                fontWeight: FontWeight.bold)),
+                        Row(
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text("خبرا",
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: "BTitr",
+                                    fontSize: screenWidth*0.044,
+                                    fontWeight: FontWeight.bold)),
+                            IconButton(
+                              onPressed: () {
+                                globals.fetchNews();
+                                setState(() {
+
+                                });
+                              },
+                              icon: Icon(
+                                Icons.refresh,
+                                color: const Color(0xFF7A0C31),
+                                size: screenWidth * 0.063,
+                              ),
+                            ),
+                          ],
+                        ),
                         Text("ترم بهار 1403",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,

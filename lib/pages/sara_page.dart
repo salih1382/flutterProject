@@ -13,6 +13,16 @@ class SaraPage extends StatefulWidget {
 
 class _SaraPageState extends State<SaraPage> {
   @override
+  void initState() {
+    super.initState();
+    _update();
+  }
+
+  Future<void> _update() async {
+    await globals.update(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
@@ -38,7 +48,20 @@ class _SaraPageState extends State<SaraPage> {
                         style: TextStyle(
                             fontFamily: "BTitr",
                             fontSize: screenWidth * 0.044,
-                            fontWeight: FontWeight.bold))
+                            fontWeight: FontWeight.bold)),
+                    IconButton(
+                      onPressed: () {
+                        globals.update(widget.id);
+                        setState(() {
+
+                        });
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: const Color(0xFF7A0C31),
+                        size: screenWidth * 0.063,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -219,7 +242,7 @@ class _SaraPageState extends State<SaraPage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    children: globals.taskWidgets,
+                    children: globals.taskWidgets.where((element) => !element.isDone).toList(),
                   ),
                 ),
               ),

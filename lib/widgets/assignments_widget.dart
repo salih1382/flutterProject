@@ -1,15 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:ui';
-
+import 'package:http/http.dart' as http;
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class AssignmentsWidget extends StatefulWidget {
-  AssignmentsWidget(
-      {required this.assignmentTitle,
-      required this.deadLine,
-      this.isDone = false,
-      super.key});
+  AssignmentsWidget({
+    required this.id,
+    required this.assignmentTitle,
+    required this.deadLine,
+    this.isDone = false,
+    super.key,
+  });
+
+  String id;
 
   String assignmentTitle;
   DateTime deadLine;
@@ -32,6 +38,18 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
         _filePath = result.files.single.path;
       });
     }
+  }
+
+  Future<void> _DoneAssignment() async {
+    final url = Uri.parse('http://192.168.160.106:8080/DoneAssignments');
+    final response = await http
+        .post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'id': widget.id, 'title': widget.assignmentTitle}),
+        )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
   }
 
   @override
@@ -77,7 +95,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                         )),
                   ],
                 ),
-                Text(widget.deadLine.toString(),
+                Text('${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}',
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
@@ -180,7 +198,8 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                 SizedBox(
                                   width: screenWidth * 0.021,
                                 ),
-                                Text('${widget.deadLine.difference(DateTime.now()).inDays} روز',
+                                Text(
+                                    '${widget.deadLine.difference(DateTime.now()).inDays} روز',
                                     textDirection: TextDirection.rtl,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
@@ -415,7 +434,9 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                   textDirection: TextDirection.rtl,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _DoneAssignment();
+                      },
                       icon: Icon(
                         Icons.radio_button_unchecked,
                         color: Colors.red,
@@ -435,7 +456,8 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                         )),
                   ],
                 ),
-                Text('${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}' ,
+                Text(
+                    '${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}',
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(

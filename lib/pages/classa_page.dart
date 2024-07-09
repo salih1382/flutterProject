@@ -12,6 +12,16 @@ class ClassaPage extends StatefulWidget {
 }
 
 class _ClassaPageState extends State<ClassaPage> {
+  @override
+  void initState() {
+    super.initState();
+    _updateCourses();
+  }
+
+  Future<void> _updateCourses() async {
+    await globals.fetchCourses(widget.id);
+  }
+
   String? _textEditing = "";
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -39,13 +49,31 @@ class _ClassaPageState extends State<ClassaPage> {
                   children: [
                     Column(
                       children: [
-                        Text("کلاس ها",
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontFamily: "BTitr",
-                                fontSize: screenWidth * 0.044,
-                                fontWeight: FontWeight.bold)),
+                        Row(
+                          textDirection: TextDirection.rtl,
+                          children: [
+                            Text("کلاس ها",
+                                textDirection: TextDirection.rtl,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: "BTitr",
+                                    fontSize: screenWidth * 0.044,
+                                    fontWeight: FontWeight.bold)),
+                            IconButton(
+                              onPressed: () {
+                                globals.fetchCourses(widget.id);
+                                setState(() {
+
+                                });
+                              },
+                              icon: Icon(
+                                Icons.refresh,
+                                color: const Color(0xFF7A0C31),
+                                size: screenWidth * 0.063,
+                              ),
+                            ),
+                          ],
+                        ),
                         Text("ترم بهار 1403",
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,

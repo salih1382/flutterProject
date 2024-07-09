@@ -29,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       socket.listen((Uint8List data) {
         int responseCode = data[0];
         if (responseCode == 0) {
-          print("object");
-          globals.update(id);
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomePage(id: id)),
             (Route<dynamic> route) => false,

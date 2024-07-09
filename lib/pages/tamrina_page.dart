@@ -12,6 +12,16 @@ class TamrinaPage extends StatefulWidget {
 }
 
 class _TamrinaPageState extends State<TamrinaPage> {
+  @override
+  void initState() {
+    super.initState();
+    _updateAssignments();
+  }
+
+  Future<void> _updateAssignments() async {
+    await globals.fetchAssignments(widget.id);
+  }
+
   Jalali? _selectedDate = Jalali.now();
 
   Future<void> _showDataPicker(BuildContext context) async {
@@ -70,6 +80,17 @@ class _TamrinaPageState extends State<TamrinaPage> {
                             fontFamily: "BTitr",
                             fontSize: screenWidth * 0.044,
                             fontWeight: FontWeight.bold)),
+                    IconButton(
+                      onPressed: () {
+                        globals.fetchAssignments(widget.id);
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: const Color(0xFF7A0C31),
+                        size: screenWidth * 0.063,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -100,7 +121,12 @@ class _TamrinaPageState extends State<TamrinaPage> {
               Expanded(
                   child: SingleChildScrollView(
                 child: Column(
-                  children: globals.assignmentWidgets,
+                  children: globals.assignmentWidgets
+                          .where((element) => !element.isDone && _selectedDate == Jalali.fromDateTime(element.deadLine))
+                          .toList() +
+                      globals.assignmentWidgets
+                          .where((element) => element.isDone  && _selectedDate == Jalali.fromDateTime(element.deadLine))
+                          .toList(),
                 ),
               ))
             ],

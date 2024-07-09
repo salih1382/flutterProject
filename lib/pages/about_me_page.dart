@@ -1,11 +1,36 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import '../globals.dart' as globals;
+import 'package:http/http.dart' as http;
 
-class AboutMePage extends StatelessWidget {
+class AboutMePage extends StatefulWidget {
   AboutMePage({required this.id, super.key});
 
   String id;
+
+  @override
+  State<AboutMePage> createState() => _AboutMePageState();
+}
+
+class _AboutMePageState extends State<AboutMePage> {
+  bool _isEdit = false;
+  final TextEditingController _textEditingController = TextEditingController(
+    text: globals.studentDetails['Name'] +
+        ' ' +
+        globals.studentDetails['Lastname'],
+  );
+
+  Future<void> _deleteAccount() async{
+    final url = Uri.parse('http://192.168.160.106:8080/DeleteAccount');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id': widget.id}),
+    ).timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +38,7 @@ class AboutMePage extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         shape: const CircleBorder(),
@@ -42,15 +68,57 @@ class AboutMePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: screenHeight * 0.017),
-            Text(
-              globals.studentDetails['Name'] +
-                  ' ' +
-                  globals.studentDetails['Lastname'],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               textDirection: TextDirection.rtl,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: screenWidth * 0.04),
+              children: [
+                _isEdit
+                    ? Container(
+                        width: screenWidth * 0.4,
+                        height: screenHeight * 0.04,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD0D0D0),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(screenWidth * 0.05)),
+                        ),
+                        child: TextFormField(
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.center,
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(screenWidth * 0.05)),
+                              ),
+                              contentPadding: EdgeInsets.only(
+                                  right: screenWidth * 0.042,
+                                  left: screenWidth * 0.042,
+                                  top: screenHeight * 0.02),
+                              hintTextDirection: TextDirection.rtl,
+                              hintText: "نام کاربری"),
+                        ),
+                      )
+                    : Text(
+                        globals.studentDetails['Name'] +
+                            ' ' +
+                            globals.studentDetails['Lastname'],
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: screenWidth * 0.04),
+                      ),
+                IconButton(
+                  onPressed: () {
+                    _isEdit = !_isEdit;
+                    setState(() {});
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Color(0xFFAFBBC1),
+                  ),
+                )
+              ],
             ),
             Text(
               "دانشجو",
@@ -102,7 +170,7 @@ class AboutMePage extends StatelessWidget {
                                     fontSize: screenWidth * 0.04),
                               ),
                               Text(
-                                id,
+                                widget.id,
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -190,23 +258,7 @@ class AboutMePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.04),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Color(0xFF7A0C31),
-                    ),
-                    label: Text(
-                      "ویرایش اطلاعات کاربری",
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.04),
-                    ),
-                    style: const ButtonStyle(),
-                  ),
+                  SizedBox(height: screenHeight * 0.02),
                   TextButton.icon(
                     onPressed: () {},
                     icon: const Icon(
@@ -223,7 +275,7 @@ class AboutMePage extends StatelessWidget {
                     ),
                     style: const ButtonStyle(),
                   ),
-                  SizedBox(height: screenHeight * 0.04),
+                  SizedBox(height: screenHeight * 0.02),
                   SizedBox(
                     width: screenWidth * 0.75,
                     height: screenHeight * 0.06,
@@ -232,8 +284,11 @@ class AboutMePage extends StatelessWidget {
                         backgroundColor: MaterialStateColor.resolveWith(
                             (states) => Colors.black),
                       ),
-                      onPressed: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginPage())),
+                      onPressed: () {
+                        _deleteAccount();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
                       child: Text(
                         "حذف حساب کاربری",
                         textDirection: TextDirection.rtl,

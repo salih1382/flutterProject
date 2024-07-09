@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:http/http.dart' as http;
 
 import 'widgets/assignments_widget.dart';
@@ -24,16 +23,16 @@ List<dynamic> _assignmentItems = [];
 List<dynamic> _newsItems = [];
 
 Future<void> update(id) async {
-  await _fetchStudentDetails(id);
-  await _fetchNews();
-  await _fetchDoneAssignmentCards(id);
-  await _fetchCourses(id);
-  await _fetchAssignments(id);
-  await _fetchTasks(id);
+  await fetchStudentDetails(id);
+  await fetchNews();
+  await fetchDoneAssignmentCards(id);
+  await fetchCourses(id);
+  await fetchAssignments(id);
+  await fetchTasks(id);
 }
 
-Future<void> _fetchStudentDetails(id) async {
-  final url = Uri.parse('http://192.168.160.106:8082/StudentDetails');
+Future<void> fetchStudentDetails(id) async {
+  final url = Uri.parse('http://192.168.160.106:8080/StudentDetails');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -60,8 +59,8 @@ Future<void> _fetchStudentDetails(id) async {
   }
 }
 
-Future<void> _fetchDoneAssignmentCards(String id) async {
-  final url = Uri.parse('http://192.168.160.106:8083/DoneAssignmentCards');
+Future<void> fetchDoneAssignmentCards(String id) async {
+  final url = Uri.parse('http://192.168.160.106:8080/DoneAssignmentCards');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -82,8 +81,8 @@ Future<void> _fetchDoneAssignmentCards(String id) async {
   }
 }
 
-Future<void> _fetchCourses(id) async {
-  final url = Uri.parse('http://192.168.160.106:8084/Courses');
+Future<void> fetchCourses(id) async {
+  final url = Uri.parse('http://192.168.160.106:8080/Courses');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -108,8 +107,8 @@ Future<void> _fetchCourses(id) async {
 }
 
 
-Future<void> _fetchTasks(id) async {
-  final url = Uri.parse('http://192.168.160.106:8085/Tasks');
+Future<void> fetchTasks(id) async {
+  final url = Uri.parse('http://192.168.160.106:8080/Tasks');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -122,7 +121,8 @@ Future<void> _fetchTasks(id) async {
       _taskItems = jsonResponse['task'];
       taskWidgets = _taskItems.map<TasksWidget>((item) {
         return TasksWidget(
-          name: item['Title'],
+          id: id,
+          title: item['Title'],
           deadLine: DateTime(item['Year'], item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0),
           isDone:  item['IsDone'],
         );
@@ -137,8 +137,8 @@ Future<void> _fetchTasks(id) async {
 }
 
 
-Future<void> _fetchAssignments(id) async {
-  final url = Uri.parse('http://192.168.160.106:8086/Assignments');
+Future<void> fetchAssignments(id) async {
+  final url = Uri.parse('http://192.168.160.106:8080/Assignments');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -150,6 +150,7 @@ Future<void> _fetchAssignments(id) async {
     _assignmentItems = jsonResponse['assignment'];
     assignmentWidgets = _assignmentItems.map<AssignmentsWidget>((item) {
       return AssignmentsWidget(
+        id: id,
         assignmentTitle: item['Title'],
         deadLine: DateTime(item['Year'], item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0),
         isDone: item['IsDone'],
@@ -160,8 +161,8 @@ Future<void> _fetchAssignments(id) async {
   }
 }
 
-Future<void> _fetchNews() async {
-  final url = Uri.parse('http://192.168.160.106:8081/News');
+Future<void> fetchNews() async {
+  final url = Uri.parse('http://192.168.160.106:8080/News');
   final response = await http.post(url);
 
   if (response.statusCode == 200) {

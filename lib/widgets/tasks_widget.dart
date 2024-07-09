@@ -1,45 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_project/globals.dart' as globals;
+import '../pages/login_page.dart' as Login;
 
 class TasksWidget extends StatelessWidget {
-  TasksWidget(
-      {required this.name,
-      required this.deadLine,
-      this.isDone = false,
-      super.key});
+  TasksWidget({
+    required this.id,
+    required this.title,
+    required this.deadLine,
+    this.isDone = false,
+    super.key,
+  });
 
-  String name;
+  String id;
+  String title;
   DateTime deadLine;
   bool isDone;
 
-  String? intToMonth(int number) {
-    switch (number) {
-      case 1:
-        return "فروردین";
-      case 2:
-        return "اردیبهشت";
-      case 3:
-        return "خرداد";
-      case 4:
-        return "تیر";
-      case 5:
-        return "مرداد";
-      case 6:
-        return "شهریور";
-      case 7:
-        return "مهر";
-      case 8:
-        return "آبان";
-      case 9:
-        return "آذر";
-      case 10:
-        return "دی";
-      case 11:
-        return "بهمن";
-      case 12:
-        return "اسفند";
-      default:
-        return null;
-    }
+  Future<void> _doneTask() async {
+    final url = Uri.parse('http://192.168.160.106:8080/DoneTask');
+    final response = await http
+        .post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'id': id, 'title': title}),
+        )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
   }
 
   @override
@@ -68,7 +57,7 @@ class TasksWidget extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.005,
                   ),
-                  Text("${deadLine.hour.toString()}:00",
+                  Text("${deadLine.hour.toString()}:${deadLine.minute.toString()}",
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -76,7 +65,7 @@ class TasksWidget extends StatelessWidget {
                           fontSize: screenWidth * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(0.5))),
-                  Text(name,
+                  Text(title,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -123,14 +112,15 @@ class TasksWidget extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.005,
                   ),
-                  Text("${deadLine.hour.toString()}:00",
+                  Text("${deadLine.hour.toString()}:${deadLine.minute.toString()}",
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
+                          fontFamily: "BNazanin",
                           fontSize: screenWidth * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(0.5))),
-                  Text(name,
+                  Text(title,
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
                       style: TextStyle(
@@ -154,7 +144,9 @@ class TasksWidget extends StatelessWidget {
                     width: screenWidth * 0.031,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _doneTask();
+                    },
                     icon: Icon(
                       Icons.check_circle,
                       color: Colors.green,

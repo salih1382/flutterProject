@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:http/http.dart' as http;
 
 class KaraPage extends StatefulWidget {
   KaraPage({required this.id, super.key});
@@ -12,6 +15,16 @@ class KaraPage extends StatefulWidget {
 }
 
 class _KaraPageState extends State<KaraPage> {
+  @override
+  void initState() {
+    super.initState();
+    _updateTasks();
+  }
+
+  Future<void> _updateTasks() async {
+    await globals.fetchTasks(widget.id);
+  }
+
   Jalali? _selectedDate = Jalali.now();
   TimeOfDay? _selectedTime = const TimeOfDay(hour: 0, minute: 0);
   String? _textEditing = "";
@@ -71,6 +84,26 @@ class _KaraPageState extends State<KaraPage> {
     }
   }
 
+  Future<void> _addTask() async {
+    final url = Uri.parse('http://192.168.160.106:8080/AddTask');
+    final response = await http
+        .post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            'id': widget.id,
+            'title': _textEditing,
+            'year': Jalali.now().year,
+            'month': Jalali.now().month,
+            'day': Jalali.now().day,
+            'hour': (_selectedTime == null) ? 0 : _selectedTime!.hour,
+            'minute': (_selectedTime == null) ? 0 : _selectedTime!.minute,
+          }),
+        )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -98,6 +131,17 @@ class _KaraPageState extends State<KaraPage> {
                             fontFamily: "BTitr",
                             fontSize: screenWidth * 0.044,
                             fontWeight: FontWeight.bold)),
+                    IconButton(
+                      onPressed: () {
+                        globals.fetchTasks(widget.id);
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: const Color(0xFF7A0C31),
+                        size: screenWidth * 0.063,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -129,7 +173,7 @@ class _KaraPageState extends State<KaraPage> {
                   child: SingleChildScrollView(
                 child: Column(
                   children: globals.taskWidgets
-                      .where((element) => !element.isDone)
+                      .where((element) => !element.isDone && _selectedDate == Jalali.fromDateTime(element.deadLine))
                       .toList(),
                 ),
               )),
@@ -154,7 +198,7 @@ class _KaraPageState extends State<KaraPage> {
                   child: SingleChildScrollView(
                 child: Column(
                   children: globals.taskWidgets
-                      .where((element) => element.isDone)
+                      .where((element) => element.isDone && _selectedDate == Jalali.fromDateTime(element.deadLine))
                       .toList(),
                 ),
               )),
@@ -245,6 +289,7 @@ class _KaraPageState extends State<KaraPage> {
                       ),
                       child: TextField(
                         controller: _textEditingController,
+                        textDirection: TextDirection.rtl,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -351,6 +396,7 @@ class _KaraPageState extends State<KaraPage> {
                           setState(() {
                             _textEditing = _textEditingController.value.text;
                           });
+                          _addTask();
                           Navigator.pop(context);
                         },
                         child: Text(
