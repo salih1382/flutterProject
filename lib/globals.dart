@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:http/http.dart' as http;
 
 import 'widgets/assignments_widget.dart';
@@ -121,9 +122,9 @@ Future<void> _fetchTasks(id) async {
       _taskItems = jsonResponse['task'];
       taskWidgets = _taskItems.map<TasksWidget>((item) {
         return TasksWidget(
-          name: item['Name'],
+          name: item['Title'],
           deadLine: DateTime(item['Year'], item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0),
-          isDone: item['IsDone'],
+          isDone:  item['IsDone'],
         );
       }).toList();
     } else {
