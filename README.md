@@ -1,5 +1,4 @@
-```markdown
-# Flutter Project: Edu Assistant App
+Flutter Project: Edu Assistant App
 
 This project is an Android Edu Assistant app designed to help university students manage their academic information. The main features of this app include:
 - Uploading assignments
@@ -33,6 +32,3 @@ To see and use the backend of this project, visit the Java repository on GitHub:
 ## Contributing
 You are welcome to contribute to this project. If you find any bugs or have suggestions for improvement, please open an Issue or submit a Pull Request.
 
-## License
-This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
-```
