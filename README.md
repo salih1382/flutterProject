@@ -1,16 +1,38 @@
-# flutter_project
+```markdown
+# Flutter Project: Edu Assistant App
 
-A new Flutter project.
+This project is an Android Edu Assistant app designed to help university students manage their academic information. The main features of this app include:
+- Uploading assignments
+- Viewing the list of grades
+- Viewing the class schedule
+- Viewing user information
 
-## Getting Started
+## Features
+- Simple and user-friendly interface
+- Developed using the Flutter framework
+- Backend communication via both Socket and HTTP
 
-This project is a starting point for a Flutter application.
+## Installation and Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/flutter-project-name.git
+   ```
+2. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+3. Run the project:
+   ```bash
+   flutter run
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+## Related Project
+To see and use the backend of this project, visit the Java repository on GitHub:
+- [Java Backend Project](https://github.com/username/java-backend-project-name)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Contributing
+You are welcome to contribute to this project. If you find any bugs or have suggestions for improvement, please open an Issue or submit a Pull Request.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
+```
