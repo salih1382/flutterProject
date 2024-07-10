@@ -41,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = _usernameController.text;
     String password = _passwordController.text;
 
-    var url = Uri.parse('http://192.168.160.106:8080/SignUp');
+    var url = Uri.parse('http://192.168.20.106:8080/SignUp');
     var response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

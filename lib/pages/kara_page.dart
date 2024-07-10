@@ -85,7 +85,7 @@ class _KaraPageState extends State<KaraPage> {
   }
 
   Future<void> _addTask() async {
-    final url = Uri.parse('http://192.168.160.106:8080/AddTask');
+    final url = Uri.parse('http://192.168.20.106:8080/AddTask');
     final response = await http
         .post(
           url,
@@ -93,9 +93,9 @@ class _KaraPageState extends State<KaraPage> {
           body: json.encode({
             'id': widget.id,
             'title': _textEditing,
-            'year': Jalali.now().year,
-            'month': Jalali.now().month,
-            'day': Jalali.now().day,
+            'year': Jalali.now().toDateTime().year,
+            'month': Jalali.now().toDateTime().month,
+            'day': Jalali.now().toDateTime().day,
             'hour': (_selectedTime == null) ? 0 : _selectedTime!.hour,
             'minute': (_selectedTime == null) ? 0 : _selectedTime!.minute,
           }),

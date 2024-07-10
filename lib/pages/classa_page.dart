@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../globals.dart' as globals;
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:http/http.dart' as http;
 
 class ClassaPage extends StatefulWidget {
   ClassaPage({required this.id, super.key});
@@ -24,6 +26,18 @@ class _ClassaPageState extends State<ClassaPage> {
 
   String? _textEditing = "";
   final TextEditingController _textEditingController = TextEditingController();
+
+  Future<void> _addStudentToCourse() async {
+    final url = Uri.parse('http://192.168.20.106:8080/AddStudentToCourse');
+    final response = await http
+        .post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id': widget.id, 'Title': _textEditing}),
+    )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +157,7 @@ class _ClassaPageState extends State<ClassaPage> {
                                     Row(
                                       textDirection: TextDirection.rtl,
                                       children: [
-                                        Text("کد درس:",
+                                        Text("نام درس:",
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -169,6 +183,7 @@ class _ClassaPageState extends State<ClassaPage> {
                                             width: screenWidth * 0.006),
                                       ),
                                       child: TextField(
+                                        textDirection: TextDirection.rtl,
                                         controller: _textEditingController,
                                         decoration: InputDecoration(
                                             border: OutlineInputBorder(
@@ -183,7 +198,7 @@ class _ClassaPageState extends State<ClassaPage> {
                                             hintTextDirection:
                                                 TextDirection.rtl,
                                             hintText:
-                                                "کد گلستان درس را وارد کنید..."),
+                                                "نام درس را وارد کنید..."),
                                       ),
                                     ),
                                     SizedBox(
@@ -205,6 +220,7 @@ class _ClassaPageState extends State<ClassaPage> {
                                                 _textEditingController
                                                     .value.text;
                                           });
+                                          _addStudentToCourse();
                                           Navigator.pop(context);
                                         },
                                         child: Text(

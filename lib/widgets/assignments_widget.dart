@@ -11,14 +11,17 @@ class AssignmentsWidget extends StatefulWidget {
     required this.id,
     required this.assignmentTitle,
     required this.deadLine,
+    required this.estimatedTime,
+    this.explanation = "",
     this.isDone = false,
     super.key,
   });
 
   String id;
-
   String assignmentTitle;
   DateTime deadLine;
+  int estimatedTime;
+  String explanation;
   bool isDone;
 
   @override
@@ -26,22 +29,54 @@ class AssignmentsWidget extends StatefulWidget {
 }
 
 class _AssignmentsWidgetState extends State<AssignmentsWidget> {
-  String? _fileName;
   String? _filePath;
+  final TextEditingController _estimatedTimeController = TextEditingController();
+  final TextEditingController _explanationController = TextEditingController();
 
   Future<void> _pickFile() async {
+    var screenHeight = MediaQuery.of(context).size.height;
+
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       setState(() {
-        _fileName = result.files.single.name;
         _filePath = result.files.single.path;
       });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(bottom: screenHeight * 0.029),
+          content: Text(
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
+            'آدرس فایل انتخاب شده: $_filePath',
+          ),
+          action: SnackBarAction(label: 'باشه', onPressed: () {}),
+        ),
+      );
     }
   }
 
-  Future<void> _DoneAssignment() async {
-    final url = Uri.parse('http://192.168.160.106:8080/DoneAssignments');
+  Future<void> _setAssignmentDetails() async {
+    final url = Uri.parse('http://192.168.20.106:8080/SetAssignmentDetails');
+    final response = await http
+        .post(
+          url,
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({
+            'id': widget.id,
+            'Title': widget.assignmentTitle,
+            'explanation': _explanationController.text,
+            'estimatedTime': _estimatedTimeController.text,
+            'isDone': widget.isDone,
+          }),
+        )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
+
+  Future<void> _doneAssignment() async {
+    final url = Uri.parse('http://192.168.20.106:8080/DoneAssignments');
     final response = await http
         .post(
           url,
@@ -56,6 +91,9 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
+    _estimatedTimeController.text = widget.estimatedTime.toString();
+    _explanationController.text = widget.explanation;
 
     if (widget.isDone) {
       return Container(
@@ -95,7 +133,8 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                         )),
                   ],
                 ),
-                Text('${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}',
+                Text(
+                    '${Jalali.fromDateTime(widget.deadLine).hour}:${Jalali.fromDateTime(widget.deadLine).minute}',
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
                     style: TextStyle(
@@ -130,7 +169,10 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                       color: const Color(0xFFAFBBC1),
                       size: screenWidth * 0.052,
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      _setAssignmentDetails();
+                      Navigator.pop(context);
+                    },
                   ),
                   SizedBox(
                     width: screenWidth * 0.010,
@@ -242,6 +284,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                     width: screenWidth * 0.002),
                               ),
                               child: TextField(
+                                controller: _estimatedTimeController,
                                 textDirection: TextDirection.rtl,
                                 textAlign: TextAlign.right,
                                 decoration: InputDecoration(
@@ -252,9 +295,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                     contentPadding: EdgeInsets.only(
                                       right: screenWidth * 0.030,
                                       left: screenWidth * 0.030,
-                                    ),
-                                    hintTextDirection: TextDirection.rtl,
-                                    hintText: "5"),
+                                    )),
                               ),
                             ),
                             SizedBox(
@@ -303,6 +344,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                 width: screenWidth * 0.002),
                           ),
                           child: TextField(
+                            controller: _explanationController,
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             decoration: InputDecoration(
@@ -352,7 +394,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                           height: screenHeight * 0.010,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           textDirection: TextDirection.rtl,
                           children: [
                             Text("بارگذاری تمرین:",
@@ -364,30 +406,6 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                                   fontSize: screenWidth * 0.025,
                                   fontWeight: FontWeight.bold,
                                 )),
-                            Container(
-                              width: screenWidth * 0.30,
-                              height: screenHeight * 0.027,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFD0D0D0),
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(screenWidth * 0.021)),
-                                border: Border.all(
-                                    color: const Color(0xFF1D7084),
-                                    width: screenWidth * 0.002),
-                              ),
-                              child: Text(
-                                  (_fileName == null && _filePath == null)
-                                      ? ""
-                                      : "$_fileName: $_filePath",
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: const Color(0xFFAFBBC1),
-                                    fontFamily: "BTitr",
-                                    fontSize: screenWidth * 0.025,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
                             IconButton(
                               onPressed: () {
                                 _pickFile();
@@ -435,7 +453,7 @@ class _AssignmentsWidgetState extends State<AssignmentsWidget> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _DoneAssignment();
+                        _doneAssignment();
                       },
                       icon: Icon(
                         Icons.radio_button_unchecked,

@@ -20,13 +20,25 @@ class TasksWidget extends StatelessWidget {
   bool isDone;
 
   Future<void> _doneTask() async {
-    final url = Uri.parse('http://192.168.160.106:8080/DoneTask');
+    final url = Uri.parse('http://192.168.20.106:8080/DoneTask');
     final response = await http
         .post(
           url,
           headers: {'Content-Type': 'application/json'},
           body: json.encode({'id': id, 'title': title}),
         )
+        .timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
+
+  Future<void> _deleteTask() async {
+    final url = Uri.parse('http://192.168.20.106:8080/DeleteTask');
+    final response = await http
+        .post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id': id, 'Title': title}),
+    )
         .timeout(const Duration(seconds: 200));
     print(response.body);
   }
@@ -78,7 +90,9 @@ class TasksWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _deleteTask();
+                    },
                     icon: Icon(
                       Icons.cancel,
                       color: Colors.red,
@@ -133,7 +147,9 @@ class TasksWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _deleteTask();
+                    },
                     icon: Icon(
                       Icons.cancel,
                       color: Colors.red,

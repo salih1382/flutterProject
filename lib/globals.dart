@@ -32,7 +32,7 @@ Future<void> update(id) async {
 }
 
 Future<void> fetchStudentDetails(id) async {
-  final url = Uri.parse('http://192.168.160.106:8080/StudentDetails');
+  final url = Uri.parse('http://192.168.20.106:8080/StudentDetails');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -60,7 +60,7 @@ Future<void> fetchStudentDetails(id) async {
 }
 
 Future<void> fetchDoneAssignmentCards(String id) async {
-  final url = Uri.parse('http://192.168.160.106:8080/DoneAssignmentCards');
+  final url = Uri.parse('http://192.168.20.106:8080/DoneAssignmentCards');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -82,7 +82,7 @@ Future<void> fetchDoneAssignmentCards(String id) async {
 }
 
 Future<void> fetchCourses(id) async {
-  final url = Uri.parse('http://192.168.160.106:8080/Courses');
+  final url = Uri.parse('http://192.168.20.106:8080/Courses');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -108,7 +108,7 @@ Future<void> fetchCourses(id) async {
 
 
 Future<void> fetchTasks(id) async {
-  final url = Uri.parse('http://192.168.160.106:8080/Tasks');
+  final url = Uri.parse('http://192.168.20.106:8080/Tasks');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -138,7 +138,7 @@ Future<void> fetchTasks(id) async {
 
 
 Future<void> fetchAssignments(id) async {
-  final url = Uri.parse('http://192.168.160.106:8080/Assignments');
+  final url = Uri.parse('http://192.168.20.106:8080/Assignments');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
@@ -153,6 +153,8 @@ Future<void> fetchAssignments(id) async {
         id: id,
         assignmentTitle: item['Title'],
         deadLine: DateTime(item['Year'], item['Month'], item['Day'], item['Hour'], item['Minute'], 0, 0, 0),
+        // estimatedTime: item['EstimatedTime'],
+        estimatedTime: 1,
         isDone: item['IsDone'],
       );
     }).toList();
@@ -162,7 +164,7 @@ Future<void> fetchAssignments(id) async {
 }
 
 Future<void> fetchNews() async {
-  final url = Uri.parse('http://192.168.160.106:8080/News');
+  final url = Uri.parse('http://192.168.20.106:8080/News');
   final response = await http.post(url);
 
   if (response.statusCode == 200) {

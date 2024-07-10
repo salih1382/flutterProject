@@ -15,6 +15,16 @@ class AboutMePage extends StatefulWidget {
 }
 
 class _AboutMePageState extends State<AboutMePage> {
+  @override
+  void initState() {
+    super.initState();
+    _updateStudentDetails();
+  }
+
+  Future<void> _updateStudentDetails() async {
+    await globals.fetchStudentDetails(widget.id);
+  }
+
   bool _isEdit = false;
   final TextEditingController _textEditingController = TextEditingController(
     text: globals.studentDetails['Name'] +
@@ -22,8 +32,18 @@ class _AboutMePageState extends State<AboutMePage> {
         globals.studentDetails['Lastname'],
   );
 
+  Future<void> _changeNameAccount() async{
+    final url = Uri.parse('http://192.168.20.106:8080/ChangeStudentDetailsHandler');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'id': widget.id, 'Name': _textEditingController.text.trimLeft().split(' ').first, 'familyName': _textEditingController.text.trimLeft().substring(_textEditingController.text.trimLeft().indexOf(' ') + 1)}),
+    ).timeout(const Duration(seconds: 200));
+    print(response.body);
+  }
+
   Future<void> _deleteAccount() async{
-    final url = Uri.parse('http://192.168.160.106:8080/DeleteAccount');
+    final url = Uri.parse('http://192.168.20.106:8080/DeleteAccount');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -111,7 +131,9 @@ class _AboutMePageState extends State<AboutMePage> {
                 IconButton(
                   onPressed: () {
                     _isEdit = !_isEdit;
-                    setState(() {});
+                    setState(() {
+                      _changeNameAccount();
+                    });
                   },
                   icon: const Icon(
                     Icons.edit,
@@ -143,7 +165,7 @@ class _AboutMePageState extends State<AboutMePage> {
                   ),
                   Container(
                     width: screenWidth * 0.75,
-                    height: screenHeight * 0.290,
+                    height: screenHeight * 0.4,
                     decoration: BoxDecoration(
                       color: const Color(0xFF7A0C31),
                       border: Border.all(
@@ -180,6 +202,16 @@ class _AboutMePageState extends State<AboutMePage> {
                             ],
                           ),
                         ),
+                        Text(
+                          "_____________________________________________________________________",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.020,
+                            fontFamily: "BNazanin",
+                            decoration: TextDecoration.underline,
+                            decorationThickness: screenWidth * 0.010,
+                            decorationColor: const Color(0xFFAFBBC1),
+                          ),
+                        ),
                         SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
@@ -205,6 +237,16 @@ class _AboutMePageState extends State<AboutMePage> {
                             ],
                           ),
                         ),
+                        Text(
+                          "_____________________________________________________________________",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.020,
+                            fontFamily: "BNazanin",
+                            decoration: TextDecoration.underline,
+                            decorationThickness: screenWidth * 0.010,
+                            decorationColor: const Color(0xFFAFBBC1),
+                          ),
+                        ),
                         SizedBox(
                           width: screenWidth * 0.6,
                           child: Row(
@@ -228,6 +270,16 @@ class _AboutMePageState extends State<AboutMePage> {
                                     fontSize: screenWidth * 0.04),
                               ),
                             ],
+                          ),
+                        ),
+                        Text(
+                          "_____________________________________________________________________",
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.020,
+                            fontFamily: "BNazanin",
+                            decoration: TextDecoration.underline,
+                            decorationThickness: screenWidth * 0.010,
+                            decorationColor: const Color(0xFFAFBBC1),
                           ),
                         ),
                         SizedBox(
@@ -258,24 +310,7 @@ class _AboutMePageState extends State<AboutMePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.02),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.password,
-                      color: Color(0xFF7A0C31),
-                    ),
-                    label: Text(
-                      "تغییر رمز عبور",
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.04),
-                    ),
-                    style: const ButtonStyle(),
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.04),
                   SizedBox(
                     width: screenWidth * 0.75,
                     height: screenHeight * 0.06,
